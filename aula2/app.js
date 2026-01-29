@@ -72,7 +72,7 @@ entradaDeDados.question('digite o nome do aluno: ', function(nome){
                     }else if( nota1 <0 || nota1 >100 || nota2 <0 || nota2 >100 || nota3 <0 || nota3 >100 || nota4 <0 || nota4 >100  ){
                         console.log('Erro: é obrigatorio o valor de notas valida!!!')
                     }else{
-                        // calcular media
+                        // calcular media+
                     }
 
 
