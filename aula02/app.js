@@ -84,7 +84,7 @@ entradaDeDados.question('digite o nome do aluno: ', function(nome){
                     //Validação de entrada de letras
                     // isNan() -> Permite validar se o conteúdo da variavel tem algum caracter ao inves de número.
                     }else if(isNaN(nota1) || isNaN(nota2)  || isNaN(nota3)  || isNaN(nota4)){
-                        console.log(' ERRO: Não é possivel calcular a media com a esntrada e letra nas notas do aluno!!! ')
+                        console.log(' ERRO: Não é possivel calcular a media com a entrada e letra nas notas do aluno!!! ')
                         
                     //Calculo e Validação de media  
                     }else{
