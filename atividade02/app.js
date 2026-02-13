@@ -1,0 +1,37 @@
+/*********************************************************************************************************************************
+ * Objetivo: Exercicio Back-and - Atividade 2
+ * Data: 13/02/2026
+ * Autor: Juan Fonseca
+ * Versão: 1.0
+ ***********************************************************************************************************************************/
+
+const readline = require('readline')
+
+
+const entradaDeDados = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+})
+
+
+
+// Entradas: 
+entradaDeDados.question ('Digite primeiro valor  de entrada: ', function (numero1) {
+    let valor1 = Number(numero1)
+    entradaDeDados.question('Digite segundo valor  de entrada: ', function(numero2) {
+        let valor2 = Number(numero2)
+        entradaDeDados.question ('Digite qual operação matemática deseja realizar: \n1-somar \n2-subtrair \n3-multiplicar \n4-dividir \n Opção Escolhida: ', function (conta) {
+            let operacao  = conta   
+            
+            let app = require('./moduloApp/calculo')
+            
+            let valida = app.validaDados(valor1,valor2,operacao)
+            if(valida == true){
+               let Tratativa = app.tratativaDados
+            }if(Tratativa == true)
+
+            
+        })
+    })
+})
+ 
