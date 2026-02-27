@@ -35,14 +35,7 @@ function validaDados(numero1,numero2,conta){
     }
     
 }   
-//Tratativa de dados desafio
-
-        
-    
-    
-    
-
-    
+//Tratativa de dados desafio   
 function realizarCalculo(valor1, valor2, operacao){
 
     let dado1 = Number(valor1)
