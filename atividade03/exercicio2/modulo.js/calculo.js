@@ -1,0 +1,136 @@
+/*********************************************************************************************************************************
+ * Objetivo: Exercicio Back-and - Atividade 2
+ * Data: 13/02/2026
+ * Autor: Juan Fonseca
+ * Versão: 1.0
+ * 
+ * 
+ * 
+ * function exibeResultado(sexoprof, sexoAluno,curso,nomeAluno,nomeProf,disciplina,nota1,nota2,nota3,Nota4,resultado){
+
+    
+    console.log(` O ${sexoAluno} ${nomeAluno} foi ${resultado} na disciplina ${disciplina}.\n
+    Curso: ${curso}\n
+    ${sexoprof}: ${nomeProf}\n
+    Notas do ${sexoAluno}: ${nota1}, ${nota2}, ${nota3}, ${nota4}, Nota do ${resultado}\n
+    Média Final: ${resultado}\n
+    Média final do Exame: ${resultado}`)
+}
+ ***********************************************************************************************************************************/
+function calculoAprovados(notaA,notaB,notaC){
+
+    let nota1 = Number(notaA)
+    let nota2 = Number(notaB)
+    let nota3 = Number(notaC)
+    let media
+
+    media = ((nota1 + nota2 + nota3) / (3))
+    return media 
+    
+}
+
+
+
+function interpretarNota(resultado){
+    let media = Number(resultado)
+
+    if(media > 70){
+        console.log('Aprovado')
+    }else if(media < 50){
+        console.log('Reprovado;')
+    }else if( media > 50 && media <= 69 ){
+        console.log('aluno de recuperação')
+        return false
+    }else{
+        return true
+    }
+}  
+
+function calculoRecuperacao(resultado,notaD){
+
+    let nota4 = Number(notaD)
+    let media = Number(resultado) 
+    let novaMedia
+
+    novaMedia = (media + nota4) / (2)
+    console.log(novaMedia.toFixed(2))
+}
+
+function interpretarNovaNota(resultado){
+    let media = Number(resultado)
+
+    if(media < 60){
+        console.log('Reprovado;') 
+    }else{
+        console.log('Aprovado')
+        return true
+    }
+} 
+
+function validaSexoAluno(sexo,sexo1){
+    let aluno = sexo1 
+    let prof = sexo 
+    
+    if(aluno == 'masculino' ){
+       aluno = 'aluno'
+    }else if(aluno == 'feminino' ){
+        aluno = 'feminino'
+    }else if(prof == 'masculino' ){
+        prof = 'Professor'
+    }else if(prof == 'feminino' ){
+        prof = 'Professora'
+    }
+    console.log(` O ${sexoAluno} ${nomeAluno} foi ${resultado} na disciplina ${disciplina}.\n
+        Curso: ${curso}\n
+        ${sexoprof}: ${nomeProf}\n
+        Notas do ${sexoAluno}: ${nota1}, ${nota2}, ${nota3}, ${nota4}, Nota do ${resultado}\n
+        Média Final: ${resultado}\n
+        Média final do Exame: ${resultado}`)
+
+}
+
+function validaDados(nota1,nota2,nota3,nome1,nome2,nome3,nome4){
+    let notaA = Number(nota1)
+    let notaB = Number(nota2)
+    let notaC = Number(nota3)
+    
+    if( 
+        notaA == '' || notaB == '' || notaC == '' || 
+        nome1 == '' || nome2 == '' || nome3 == '' || nome4 == ''){
+        console.log('ERRO: Valores digitados estão vazios')
+        return false
+    }else if(
+        isNaN(nota1) || isNaN(nota2) || isNaN(nota3) ){
+        console.log('ERRO: Valores digitados devem ser numeros')
+        return false
+    }else if ( 
+        nota1 < 0 || nota1 > 100 ||  
+        nota2 < 0  || nota2  > 100 ||  
+        nota3 < 0 || nota3 > 100){
+        console.log('ERRO: Valores digitados são invalidados')
+        return false
+    }else{
+        return true
+    }
+    
+} 
+
+
+
+
+// Teste das funções
+//interpretarNota(65)
+//calculoRecuperação(59,70)
+//calculoAprovados(50,50,70)
+
+
+module.exports = {
+    calculoAprovados,
+    calculoRecuperacao,
+    interpretarNota,
+    interpretarNovaNota,
+    validaSexoAluno,
+    validaSexoProf,
+    validaDados,
+    exibeResultado
+}
