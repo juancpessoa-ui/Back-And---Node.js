@@ -3,20 +3,7 @@
  * Data: 13/02/2026
  * Autor: Juan Fonseca
  * Versão: 1.0
- * 
- * 
- * 
- * function exibeResultado(sexoprof, sexoAluno,curso,nomeAluno,nomeProf,disciplina,nota1,nota2,nota3,Nota4,resultado){
-
-    
-    console.log(` O ${sexoAluno} ${nomeAluno} foi ${resultado} na disciplina ${disciplina}.\n
-    Curso: ${curso}\n
-    ${sexoprof}: ${nomeProf}\n
-    Notas do ${sexoAluno}: ${nota1}, ${nota2}, ${nota3}, ${nota4}, Nota do ${resultado}\n
-    Média Final: ${resultado}\n
-    Média final do Exame: ${resultado}`)
-}
- ***********************************************************************************************************************************/
+***********************************************************************************************************************************/
 function calculoAprovados(notaA,notaB,notaC){
 
     let nota1 = Number(notaA)
