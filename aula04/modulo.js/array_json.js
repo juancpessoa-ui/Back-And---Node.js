@@ -253,19 +253,23 @@ let produtos = [
     {   "id":1, 
         "nome":"Monitor" , 
         "descricao": "27 polegadas",
-        "marca": marca[1].marca,
+        "marca": [
+            marca[1].marca
+            ],
         "qtde" : 20,
         "cor": [
             cores[4],
             cores[1]
-        ],
+            ],
         "valor": 800.50
     },
     {
         "id": 2,
         "nome":"Teclado" , 
         "descricao": "teclado 60%",
-        "marca": marca[5].marca,
+        "marca": [
+            marca[5].marca
+        ],
         "qtde" : 200,
         "cor": cores,
         "valor": 150
@@ -299,11 +303,34 @@ let produtos = [
     //console.log(produtos)
     //console.log(produtos[0].cor)
     //console.log(produtos[0].cor[1].cor)
-    console.table(produtos)
+    //console.table(produtos)
 
     //caminho( ).cor.comando(função(variavel))  
     // produtos[0].cor.forEach(function(nomeCor){
     //     console.log('A cor do produto é:' + nomeCor.cor)
     // })
+
+
+//DESAFIO:
+
+produtos[0].marca.forEach(function(dados){
+    console.log('O produto é:' + dados)
+    
+    produtos[1].marca.forEach(function(dados){
+        console.log('O produto é:' + dados)
+        
+        produtos[2].marca.forEach(function(dados){
+            console.log('O produto é:' + dados)
+            
+        
+        })
+        
+    
+    })
+
+})
+//console.table(produtos)
+
 }
 cadastroDeProdutos()
+
