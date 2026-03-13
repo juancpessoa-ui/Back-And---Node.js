@@ -179,12 +179,14 @@ const quantidadeDeItens = function(nome){
     return cont
 }
 
-console.log(quantidadeDeItens('Jose'))
+//console.log(quantidadeDeItens('Jose'))
+
+//Splice()-> Permite remover um novo elemento em determinado lugar do array (indice)
+                //indice, 0-> significa que não será removido ninguem, Novo conteúdo.
+listaDefornecedores.splice(2,0,'CArlos da Silva')
+//console.table(listaDefornecedores)
 
 // verificarItem('Maria')
-
-
-
 
 // console.table(listaDeNomes)
 // let resposta = removerItem('Maria')
@@ -195,3 +197,113 @@ console.log(quantidadeDeItens('Jose'))
 // }
 // console.table(listaDeNomes)
 
+//************************************************************************************************************************************************************************************************
+
+// JSON 
+// {} -> valor | {"conteúdo": "valor"} |  
+
+const criandoDadosJson = function(){
+    let aluno  = {  "nome": "Jose", 
+                    "ra": 123456, 
+                    "telefone": '975754414', 
+                    "email": "jose@gmail.com" 
+                }
+    //  Exibindo o objeto JSON completo          
+    console.log(aluno)
+    console.table(aluno)
+
+    //Exibindo o atributo JSON 
+    console.log(aluno.nome)
+    console.log(aluno.email)
+
+    //Criar um atributo que não existe
+    aluno.sexo = "masculino"
+    console.log(aluno)
+     
+    //Remove um atributo do Json
+    delete aluno.telefone
+    console.log(aluno)
+
+}
+//criandoDadosJson()
+
+
+//********************************************************************** JSON + ARRAY ************************************************************************************************************************************************************************************
+
+const cadastroDeProdutos = function(){
+    let cores = [
+        {"id": 1, "cor":"branco"}, //indice 0
+        {"id": 2, "cor":"preto"},  //indice 1
+        {"id": 3, "cor":"azul"},   //indice 2
+        {"id": 4, "cor":"rosa"},   //indice 3
+        {"id": 5, "cor":"cinza"},  //indice 4 ...
+        
+    ]
+
+    let marca = [    
+        {"id": 1,  "marca": "LG" ,          "telefone": "25131345", "email":"Lg@gmail.com"},
+        {"id": 2,  "marca": "Dell",         "telefone": "31134546", "email":"Dell@gmail.com"},
+        {"id": 2,  "marca": "apple",        "telefone": "54313454", "email":"apple@gmail.com"},
+        {"id": 3,  "marca": "lenovo",       "telefone": "54344354", "email":"lenovo@gmail.com"},
+        {"id": 4,  "marca": "rayzer",       "telefone": "34344354", "email":"rayzer@gmail.com"},
+        {"id": 5,  "marca": "logitech",     "telefone": "44454536", "email":"logitech@gmail.com"},
+        {"id": 6 , "marca": "Multilaser",   "telefone": "42343432", "email":"multilaser@gmail.com"},
+    ]
+let produtos = [
+    {   "id":1, 
+        "nome":"Monitor" , 
+        "descricao": "27 polegadas",
+        "marca": marca[1].marca,
+        "qtde" : 20,
+        "cor": [
+            cores[4],
+            cores[1]
+        ],
+        "valor": 800.50
+    },
+    {
+        "id": 2,
+        "nome":"Teclado" , 
+        "descricao": "teclado 60%",
+        "marca": marca[5].marca,
+        "qtde" : 200,
+        "cor": cores,
+        "valor": 150
+    },
+    {
+        "id": 3,
+        "nome":"Mouse" , 
+        "descricao": "sem fio",
+        "marca": [
+                marca[0].marca,
+                marca[1].marca,
+                marca[5].marca
+                ],
+        "qtde" : 500,
+        "cor": [
+                cores[0],
+                cores[1],
+                cores[4]
+        ],
+        "valor": 150
+    }
+]
+
+    //console.log(cores)
+    //console.table(cores)
+    
+    
+    // objeto[indice].objeto...
+    //console.log(cores[2].nome)
+
+    //console.log(produtos)
+    //console.log(produtos[0].cor)
+    //console.log(produtos[0].cor[1].cor)
+    console.table(produtos)
+
+    //caminho( ).cor.comando(função(variavel))  
+    // produtos[0].cor.forEach(function(nomeCor){
+    //     console.log('A cor do produto é:' + nomeCor.cor)
+    // })
+}
+cadastroDeProdutos()
