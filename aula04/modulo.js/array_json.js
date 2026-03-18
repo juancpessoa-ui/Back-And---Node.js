@@ -313,23 +313,70 @@ let produtos = [
 
 //DESAFIO:
 
-produtos[0].marca.forEach(function(dados){
-    console.log('O produto é:' + dados)
+// produtos[0].marca.forEach(function(dados){
+//     console.log('O produto é:' + dados)
     
-    produtos[1].marca.forEach(function(dados){
-        console.log('O produto é:' + dados)
+//     produtos[1].marca.forEach(function(dados){
+//         console.log('O produto é:' + dados)
         
-        produtos[2].marca.forEach(function(dados){
-            console.log('O produto é:' + dados)
+//         produtos[2].marca.forEach(function(dados){
+//             console.log('O produto é:' + dados)
+
+//             produtos[0].descricao[].forEach(function(dados){
+//                console.log(dados) 
+//             })
             
         
-        })
+//         })
         
     
+//     })
+
+// })
+//console.table(produtos)
+
+
+//percorre o objeto de cada produto para trazer os dados de cada produto 
+produtos.forEach(function(itemProduto){
+    console.log(`Produto: ${itemProduto.nome}`)
+    console.log(`Descrição: ${itemProduto.descricao}`)
+        
+   //percorre o objeto de cada marca dentro de ca produto, para trazer as marcas 
+    itemProduto.marca.forEach(function(itemMarca){
+        console.log(`Marca: ${itemMarca}`)
+    })       
+
+    //percorre o objeto de cada cor dentro de  produto, para trazer as cores 
+    itemProduto.cor.forEach(function(itemCor){
+        console.log(`Cor: ${itemCor.cor}`)
+    })
+        
+    
+})
+
+//Pesquisando um produto pelo NOME
+let nome = "mouse"
+
+produtos.forEach(function(itemProduto){
+    if(String(itemProduto.nome).toUpperCase()== String(nome).toUpperCase()){
+        console.log(itemProduto)
+    }
+})
+//Pesquisando um produto pela Cor
+let cor = "branco"
+let status = false
+produtos.forEach(function(itemProduto){
+    itemProduto.cor.forEach(function(itemCor){
+        if(String(itemCor.cor).toUpperCase()== String(cor).toUpperCase()){
+            console.log(itemProduto)
+        }
     })
 
+
 })
-//console.table(produtos)
+ if(!status)
+    console.log('Produto não encontrado')
+
 
 }
 cadastroDeProdutos()
