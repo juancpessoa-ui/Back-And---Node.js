@@ -8,7 +8,10 @@ function getListaDeEstados(estado){
        listUf.push(uf.sigla)
     })
     console.log(listUf)
-    console.log(`Quantidade: ${(uf.sigle).length}`)
+    console.log(`Quantidade: ${listUf.length}`)
+    return {uf:listUf.length,
+        quantidade
+     }
 }
 
 getListaDeEstados()
