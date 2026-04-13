@@ -70,7 +70,21 @@ function getCapitalPais(capitalRecebido){
     })
    return listaCapital
 }
+function getCapitalEstado(siglaRecebida){
+   let resultado = null
 
+   InfoEstados.listaDeEstados.estados.forEach(function(estado){
+       if(estado.sigla.toUpperCase() === siglaRecebida.toUpperCase()){
+           resultado = {
+               uf: estado.sigla,
+               descricao: estado.nome,
+               capital: estado.capital
+           }
+       }
+   })
+
+   return resultado
+}
 // console.log(getCapitalPais())
 
 function getCidades(ufRecebido){
@@ -86,7 +100,7 @@ function getCidades(ufRecebido){
          estado.cidades.forEach(function(cidade){
             listaCidades.push(cidade.nome)
          })
-         // Acresenta os objetos selecionados dos dois foreach na variavel resultado.
+         // Acresenta os objetos selecionados dos dois for each na variavel resultado.
           resultados = {
                uf: estado.sigla,
                descricao: estado.nome,
@@ -101,3 +115,12 @@ function getCidades(ufRecebido){
       return resultados
 }
 
+// cola isso no final do arquivo
+module.exports = {
+   getListaDeEstados,
+   getDadosEstado,
+   getCapitalEstado,
+   getEstadoRegiao,    // ← nome correto, sem "s"
+   getCapitalPais,
+   getCidades
+}
