@@ -34,9 +34,11 @@ const bodyParserJOSN = bodyParser.json()
 app.post('/v1/senai/locadora/filme', bodyParserJOSN, async function(request,response){
     // Recebe o conteúdo dentro do body da requisição
     let dados = request.body
+    // Recebe o content Type da função para validar se é um Json
+    let contentType = request.headers['content-type']
 
-    let result = await controllerFilmes.inserirNovoFilme(dados)
-
+    let result = await controllerFilmes.inserirNovoFilme(dados,contentType)
+    
     response.status(result.status_code)
     response.json(result)
 
