@@ -28,7 +28,6 @@ const filmeDAO = require('../../model/DAO/filme/filme.js')
 
                     //Encaminha Dados do filme para o DAO
                     let result = await filmeDAO.insertFilmes(filme)
-                    console.log(result)
                     if(result){ //201
                         message.DEFAUT_MESSAGE.status = message.SUCCES_CREADT_ITEM.status
                         message.DEFAUT_MESSAGE.status_code = message.SUCCES_CREADT_ITEM.status_code
@@ -53,14 +52,67 @@ const filmeDAO = require('../../model/DAO/filme/filme.js')
     
  }
 
+
  //Função para reornar todos os filmes
  const listarFilme= async function(){
+    let message  = JSON.parse(JSON.stringify(config_message)) //(STATUS 400)
 
+    try {
+        //Chama a função do DAO  para retornar a lista de todos os filmes. 
+        let result = await filmeDAO.selectAllFilme()
+        
+        //Validação para verificar se o DAO conseguiu processar os Dados 
+        if(result){
+            // Validação para verificar se existe conteúdo no array
+            if(result.length > 0){
+                message.DEFAUT_MESSAGE.status = message.SUCCES_RESPONSE.status
+                message.DEFAUT_MESSAGE.status_code = message.SUCCES_RESPONSE.status_code
+                message.DEFAUT_MESSAGE.response.count = result.length
+                message.DEFAUT_MESSAGE.response.filme = result
+                
+                return message.DEFAUT_MESSAGE// 200(dados do filme)
+            }else{
+                return message.ERROR_NOT_FOND //404 
+            }
+        }else{
+            
+            return message.ERROR_INTERNAL_SERVER_MODEL // 500(model)
+        }
+
+    } catch (error) {
+        message.ERROR_INTERNAL_SERVER_CONTROLLER //500(controller)
+    }
  }
 
  //Função para buscar filme pelo ID
- const buscarFilme = async function (){
+ const buscarFilme = async function (id){
+    let message  = JSON.parse(JSON.stringify(config_message)) //(STATUS 400)
 
+    try {
+        //Validação para garantir que id seja valido
+        if(id == '' || id == null || id == undefined || isNaN(id)){
+            message.ERROR_BAD_REQUEST.field = '[ID INVÁLIDO]'
+            return message.ERROR_BAD_REQUEST //400
+        }else{
+            let result = await filmeDAO.selectByIdFilme(id)
+
+            if(result){
+                if(result.length > 0){
+                    message.DEFAUT_MESSAGE.status = message.SUCCES_RESPONSE.status
+                    message.DEFAUT_MESSAGE.status_code = message.SUCCES_RESPONSE.status_code
+                    message.DEFAUT_MESSAGE.response.filme = result
+                    
+                    return message.DEFAUT_MESSAGE //200
+                }else{
+                    return message.ERROR_NOT_FOND //404
+                }
+            }else{
+                return message.ERROR_INTERNAL_SERVER_MODEL// 500(MODEL)
+            }
+        }     
+    } catch (error) {
+        return message.ERROR_INTERNAL_SERVER_CONTROLLER //500 (CONTROLLER)
+    }
  }
 
  //Função para excluir um filme
@@ -73,7 +125,7 @@ const filmeDAO = require('../../model/DAO/filme/filme.js')
 
     //Criando um clone do objeto json para manipular a sua estrutura local sem modificar a estrutura original. 
     let message  = JSON.parse(JSON.stringify(config_message)) //(STATUS 400)
-
+    console.log( filme.avaliacao.split('.')[0].length)
     
     if(filme.nome=== '' || filme.nome == null || filme.nome == undefined || filme.nome.length > 80){
         message.ERROR_BAD_REQUEST.field = '[NOME] INVALIDO'
@@ -91,7 +143,7 @@ const filmeDAO = require('../../model/DAO/filme/filme.js')
         message.ERROR_BAD_REQUEST.field = '[SINOPSE] INVALIDO'
         return message.ERROR_BAD_REQUEST //400
 
-    }else if(isNaN(filme.avaliacao || filme.avaliacao > 3)){
+    }else if(isNaN(filme.avaliacao) || filme.avaliacao.split('.')[0].length > 1){
         message.ERROR_BAD_REQUEST.field = '[AVALIACÃO] INVALIDO'
         return message.ERROR_BAD_REQUEST //400
 
@@ -108,5 +160,10 @@ const filmeDAO = require('../../model/DAO/filme/filme.js')
  }
 
  module.exports = {
-    inserirNovoFilme
+    inserirNovoFilme,
+    atualizarFilme,
+    listarFilme,
+    buscarFilme,
+    excluirFilme,
+    validarDados
  }
