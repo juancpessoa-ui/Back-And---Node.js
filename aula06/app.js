@@ -61,6 +61,40 @@ app.get('/v1/senai/locadora/filme/:id', async function (request, response){
     response.status(result.status_code)
     response.json(result)
 })
+
+app.put('/v1/senai/locadora/filme/:id', bodyParserJOSN, async function(request, response){
+    
+    //Recebe o content type da requisição 
+    let contentType = request.headers['content-type']
+    //Recebe o ID da requisição 
+    let id = request.params.id
+    //Recebe os dados da requisição 
+    let dados = request.body
+    
+    // Chama a função de atualizar na controller e encaminha os dados, id e content-type
+    //obedecendo a ordem de criação na função da controller. 
+    let result = await controllerFilmes.atualizarFilme(dados,id,contentType)
+
+    response.status(result.status_code)
+    response.json(result)
+})
+
+app.delete('/v1/senai/locadora/filme/:id', bodyParserJOSN, async function(request, response){
+    
+    
+    //Recebe o ID da requisição 
+    let id = request.params.id
+    //Recebe os dados da requisição 
+    let dados = request.body
+    
+    // Chama a função de atualizar na controller e encaminha os dados, id e content-type
+    //obedecendo a ordem de criação na função da controller. 
+    let result = await controllerFilmes.excluirFilme(dados,id)
+
+    response.status(result.status_code)
+    response.json(result)
+})
+
  //serve para inicializar a Api para receber requisições
 app.listen(8080, function () {
     console.log('Api funcionando e aguardando novas requisições...')

@@ -56,6 +56,29 @@ const insertFilmes = async function(filme){
 // função para atualizar um filme existente na tabela 
 const updatefilme = async function(filme){
 
+    try {
+        
+        let sql = `update tbl_filme set
+                    nome            = '${filme.nome}',
+                    data_lancamento = '${filme.data_lancamento}',
+                    duracao         = '${filme.duracao}',
+                    sinopse         = '${filme.sinopse}',
+                    avaliacao       = if ('${filme.avaliacao}' = '', null,'${filme.avaliacao}'),
+                    valor           = '${filme.valor}',
+                    capa            = '${filme.capa}'
+                    where id        = ${filme.id}`
+                    
+    // Executa script                
+    let result = await knexConex.raw(sql)
+
+    if(result)
+        return true
+    else
+        return false
+    } catch (error) {
+        console.log(erro)
+    }
+    
 }
 
 // Função para reornar todos os dados da tabela de filme 
@@ -103,6 +126,20 @@ const selectAllFilme = async function() {
 
  //Função para excluir um filme pelo ID
  const deleteFilme = async function(id) {
+    try {
+        
+        let sql = `delete from tbl_filme where id = ${id}`
+    
+    // Executa script                
+    let result = await knexConex.raw(sql)
+
+    if(result)
+        return true
+    else
+        return false
+    } catch (error) {
+        console.log(erro)
+    }
     
  }
 

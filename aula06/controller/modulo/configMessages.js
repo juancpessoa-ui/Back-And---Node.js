@@ -25,8 +25,13 @@ const   ERROR_NOT_FOND                     = {  status: false, status_code: 404 
 const   ERROR_CONTENT_TYPE                  = {  status: false, status_code: 415 , message: 'Não foi possivel processar a requisição, pois o formato de dados aceito pela api é somente Json.'}
 
 //Mensagens de sucesso da API
-const SUCCES_CREADT_ITEM = {status: true, status_code: 201, message: 'Registro incerido com sucesso'}
-const SUCCES_RESPONSE    = {status: true, status_code: 201}
+const SUCCES_CREADT_ITEM  = {status: true, status_code: 201, message: 'Registro incerido com sucesso'}
+// retorno para GET
+const SUCCES_RESPONSE     = {status: true, status_code: 200}
+// retorno para PUT
+const SUCCES_UPDATED_ITEM = {status: true, status_code: 200, message: 'Registro Atualizado com sucesso'}
+// retorno para delite
+const SUCCES_DELITE_ITEM = {status: true, status_code: 200, message: 'Registro deletado com sucesso'}
 
 
 module.exports = {
@@ -37,5 +42,7 @@ module.exports = {
     ERROR_INTERNAL_SERVER_CONTROLLER,
     ERROR_CONTENT_TYPE,
     ERROR_NOT_FOND,
-    SUCCES_RESPONSE
+    SUCCES_RESPONSE,
+    SUCCES_UPDATED_ITEM,
+    SUCCES_DELITE_ITEM
 }
