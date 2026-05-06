@@ -44,7 +44,7 @@ const insertFilmes = async function(filme){
         let result = await knexConex.raw(sql) // await -> faz com que o java espere a  resposta do banco. 
 
         if(result)
-            return true
+            return result[0].insertId// Retorna o ID gerado
         else
             return false
     } catch (error) {
@@ -138,7 +138,7 @@ const selectAllFilme = async function() {
     else
         return false
     } catch (error) {
-        console.log(erro)
+        console.log(error)
     }
     
  }

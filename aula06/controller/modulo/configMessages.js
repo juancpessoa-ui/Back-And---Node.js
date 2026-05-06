@@ -18,7 +18,7 @@
 }
 
 // mensagem de erro da API
-const   ERROR_BAD_REQUEST                   = {  status: false, status_code: 400 , message: 'Os dados enviados na equisição não estão corretos'}
+const   ERROR_BAD_REQUEST                   = {  status: false, status_code: 400 , message: 'Os dados enviados na requisição não estão corretos'}
 const   ERROR_INTERNAL_SERVER_MODEL         = {  status: false, status_code: 500 , message: 'Não foi possivel processar a requisição, por conta de erro na Api [ERRO NA MODELAGEM DE DADOS].'}
 const   ERROR_INTERNAL_SERVER_CONTROLLER    = {  status: false, status_code: 500 , message: 'Não foi possivel processar a requisição, por conta de erro na Api [ERRO NA CONTROLLER].'}
 const   ERROR_NOT_FOND                     = {  status: false, status_code: 404 , message: 'Não foi encontrado nenhum dado para retorno [ERRO ].'}
@@ -31,7 +31,7 @@ const SUCCES_RESPONSE     = {status: true, status_code: 200}
 // retorno para PUT
 const SUCCES_UPDATED_ITEM = {status: true, status_code: 200, message: 'Registro Atualizado com sucesso'}
 // retorno para delite
-const SUCCES_DELITE_ITEM = {status: true, status_code: 200, message: 'Registro deletado com sucesso'}
+const SUCCES_DELETED_ITEM = {status: true, status_code: 200, message: 'Registro deletado com sucesso'}
 
 
 module.exports = {
@@ -44,5 +44,5 @@ module.exports = {
     ERROR_NOT_FOND,
     SUCCES_RESPONSE,
     SUCCES_UPDATED_ITEM,
-    SUCCES_DELITE_ITEM
+    SUCCES_DELETED_ITEM
 }

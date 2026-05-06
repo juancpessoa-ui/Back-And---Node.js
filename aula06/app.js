@@ -79,17 +79,16 @@ app.put('/v1/senai/locadora/filme/:id', bodyParserJOSN, async function(request, 
     response.json(result)
 })
 
-app.delete('/v1/senai/locadora/filme/:id', bodyParserJOSN, async function(request, response){
+app.delete('/v1/senai/locadora/filme/:id',  async function(request,response){
     
     
     //Recebe o ID da requisição 
     let id = request.params.id
-    //Recebe os dados da requisição 
-    let dados = request.body
+    
     
     // Chama a função de atualizar na controller e encaminha os dados, id e content-type
     //obedecendo a ordem de criação na função da controller. 
-    let result = await controllerFilmes.excluirFilme(dados,id)
+    let result = await controllerFilmes.excluirFilme(id)
 
     response.status(result.status_code)
     response.json(result)
