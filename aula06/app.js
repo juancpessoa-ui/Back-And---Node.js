@@ -95,9 +95,7 @@ app.delete('/v1/senai/locadora/filme/:id',  async function(request,response){
 })
 
  //serve para inicializar a Api para receber requisições
-app.listen(8080, function () {
-    console.log('Api funcionando e aguardando novas requisições...')
-})
+
  
 /**************************************************************************************************************************************************************************************************************************************** */
 
@@ -105,7 +103,7 @@ app.listen(8080, function () {
 
 
  // import das ControllerAtividade
- const ControllerAtividade = require('./controller/atividade/controller_atividade.js')
+ const controllerAtividade = require('./controller/atividade/controller_atividade.js')
 
 
 app.post('/v1/senai/locadora/atvidade', bodyParserJOSN, async function(request,response){
@@ -114,10 +112,30 @@ app.post('/v1/senai/locadora/atvidade', bodyParserJOSN, async function(request,r
     // Recebe o content Type da função para validar se é um Json
     let contentType = request.headers['content-type']
 
-    let result = await ControllerAtividade.inserirNovaAtividade(dados,contentType)
+    let result = await controllerAtividade.inserirNovaAtividade(dados,contentType)
     
     response.status(result.status_code)
     response.json(result)
 
 
+})
+
+app.get('/v1/senai/locadora/atividade', async function (response){
+    let result = await controllerAtividade.listarAtividade()
+    
+    response.status(result)
+    response.json(result)
+})
+
+
+
+
+
+
+
+
+
+
+app.listen(8080, function () {
+    console.log('Api funcionando e aguardando novas requisições...')
 })

@@ -190,9 +190,6 @@ const filmeDAO = require('../../model/DAO/filme/filme.js')
         return message.ERROR_INTERNAL_SERVER_CONTROLLER // 500(CONTROLLER)
     }
 }
-    
-        
-
 
  //Função para validar todos os dados de filmes (obrigatorio, qtde de caracteres,etc)
  const validarDados = async function (filme){

@@ -44,14 +44,69 @@ const atividadeDAO = require('../../model/DAO/atividade/atividade.js')
 }
 
  //Função para atualizar filme 
- const atualizarAtividade = async function(){
-   
- }
+ const atualizarAtividade = async function(atividade ,id,contentType){
+    let message = JSON.parse(JSON.stringify(config_message)) //(STATUS 400)
+
+    try {
+        if(String(contentType).toLocaleUpperCase() == 'APPLICATION/JSON'){
+            let validar = await validarDados(atividade)
+            if(!validar){
+
+                // Adiciona o atributo ID do filme no Json para ser enviado ao DAO
+                atividade.id = id
+
+                let result = await atividadeDAO.updateAtividade(atividade)
+                if(result){
+                    atividade.id = result //criando atributo ID no Json da Atividdade
+                    message.DEFAUT_MESSAGE.status = message.SUCCES_CREADT_ITEM.status
+                    message.DEFAUT_MESSAGE.status_code = message.SUCCES_CREADT_ITEM.status_code
+                    message.DEFAUT_MESSAGE.massage = message.SUCCES_CREADT_ITEM.message
+                    message.DEFAUT_MESSAGE.response = atividade 
+
+                    return message.DEFAUT_MESSAGE 
+                }else{ 
+                    return message.ERROR_INTERNAL_SERVER_MODEL //500
+                }
+            }else{
+                return validar // 400
+            }
+        }else{
+         return message.ERROR_CONTENT_TYPE // 415
+        }
+
+        
+    } catch (error) {
+        return message.ERROR_INTERNAL_SERVER_CONTROLLER // 500(CONTROLLER)
+    }
+}
 
 
  //Função para reornar todos os filmes
- const listaratividade = async function(){
-    
+ const listarAtividade = async function(){
+    let message = JSON.parse(JSON.stringify(config_message)) //(STATUS 400)
+
+    try {
+        let result = await atividadeDAO.selectAllAtividade()
+        if(!result){
+
+            if(result.length > 0 ){
+            
+                message.DEFAUT_MESSAGE.status = message.SUCCES_CREADT_ITEM.status
+                message.DEFAUT_MESSAGE.status_code = message.SUCCES_CREADT_ITEM.status_code
+                message.DEFAUT_MESSAGE.massage = message.SUCCES_CREADT_ITEM.message
+                message.DEFAUT_MESSAGE.response = atividade 
+
+                return message.DEFAUT_MESSAGE// 200(dados do filme)
+            }else{
+                return message.ERROR_NOT_FOND //404 
+            }
+        }else{
+            return message.ERROR_INTERNAL_SERVER_MODEL // 500(model)
+        }
+    } catch (error) {
+        return message.ERROR_INTERNAL_SERVER_CONTROLLER //500(controller)
+    }
+        
  }
 
  //Função para buscar filme pelo ID
@@ -82,7 +137,7 @@ const atividadeDAO = require('../../model/DAO/atividade/atividade.js')
  module.exports = {
     inserirNovaAtividade,
     atualizarAtividade,
-    listaratividade,
+    listarAtividade,
     buscarAtividade,
     excluirAtividade,
     validarDados

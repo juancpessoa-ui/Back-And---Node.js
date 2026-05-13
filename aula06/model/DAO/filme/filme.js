@@ -76,7 +76,7 @@ const updatefilme = async function(filme){
     else
         return false
     } catch (error) {
-        console.log(erro)
+        return false
     }
     
 }
