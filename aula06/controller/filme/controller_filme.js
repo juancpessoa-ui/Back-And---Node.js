@@ -11,7 +11,7 @@ const config_message = require('../modulo/configMessages.js')
 const filmeDAO = require('../../model/DAO/filme/filme.js')
 
  //Função para inserir um novo filme(Json)
- const inserirNovoFilme = async function(filme ,contentType){
+ const inserirNovoFilme = async function(filme,contentType){
     //Criando um clone do objeto json para manipular a sua estrutura local sem modificar a estrutura original. 
     let message  = JSON.parse(JSON.stringify(config_message)) //(STATUS 400)
 
@@ -43,7 +43,7 @@ const filmeDAO = require('../../model/DAO/filme/filme.js')
             }
 
     } catch (error) {
-       return  message.ERROR_INTERNAL_SERVER_CONTROLLER //500 (Controller)
+       return message.ERROR_INTERNAL_SERVER_CONTROLLER //500 (Controller)
     }
 
 }

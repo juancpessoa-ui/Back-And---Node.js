@@ -30,7 +30,7 @@ insert into tbl_filme(
                         capa
                         ) 
 						values (
-							'Super Mario Galaxy: o Filme', 
+							'C', 
                             '2026-04-02', 
                             '01:39:00',
                             'Uma nova aventura leva Mario a enfrentar um inédito e ameaçador super vilão. Em Super Mario Galaxy: O Filme, 
@@ -40,13 +40,35 @@ insert into tbl_filme(
                             '50.70',
                             'https://br.web.img3.acsta.net/c_310_420/img/5b/ea/5bea1aeac3323aeaaf82449a34fafbbf.jpg'
 							);
+select * from tbl_filme;
+select * from tbl_filme order by id desc;
 
-select *from tbl_filme
-
-
-
-
+delete from tbl_filme where id = 15;
 
 
+update tbl_filme set
+	nome = 'filme teste',
+    data_lancamento = '2000-01-01',
+    duracao = '02:00',
+    sinopse = 'testando upadate n aplicação e banco',
+    avaliacao = '2',
+    valor = '10',
+    capa = 'teste capa'
+where id = 11;
+
+delete from tbl_filme where id > 0;
+#***************************************************************************************************#
+
+#Criar tabelas 
+create table tbl_atividade(
+	id 				int not null primary key auto_increment,
+    atividade 		varchar(80) not null
+    );
+
+create table tbl_nascionalidade(
+	id 				int not null primary key auto_increment,
+    nascionalidade	varchar(80) not null
+    );
+  
 
 

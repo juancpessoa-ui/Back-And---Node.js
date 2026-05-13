@@ -99,3 +99,25 @@ app.listen(8080, function () {
     console.log('Api funcionando e aguardando novas requisições...')
 })
  
+/**************************************************************************************************************************************************************************************************************************************** */
+
+ //ENDPOINTS
+
+
+ // import das ControllerAtividade
+ const ControllerAtividade = require('./controller/atividade/controller_atividade.js')
+
+
+app.post('/v1/senai/locadora/atvidade', bodyParserJOSN, async function(request,response){
+    // Recebe o conteúdo dentro do body da requisição
+    let dados = request.body
+    // Recebe o content Type da função para validar se é um Json
+    let contentType = request.headers['content-type']
+
+    let result = await ControllerAtividade.inserirNovaAtividade(dados,contentType)
+    
+    response.status(result.status_code)
+    response.json(result)
+
+
+})
