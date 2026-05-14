@@ -106,7 +106,7 @@ app.delete('/v1/senai/locadora/filme/:id',  async function(request,response){
  const controllerAtividade = require('./controller/atividade/controller_atividade.js')
 
 
-app.post('/v1/senai/locadora/atvidade', bodyParserJOSN, async function(request,response){
+app.post('/v1/senai/locadora/atividade', bodyParserJOSN, async function(request,response){
     // Recebe o conteúdo dentro do body da requisição
     let dados = request.body
     // Recebe o content Type da função para validar se é um Json
@@ -120,10 +120,10 @@ app.post('/v1/senai/locadora/atvidade', bodyParserJOSN, async function(request,r
 
 })
 
-app.get('/v1/senai/locadora/atividade', async function (response){
+app.get('/v1/senai/locadora/atividade', async function (request,response){
     let result = await controllerAtividade.listarAtividade()
     
-    response.status(result)
+    response.status(result.status_code)
     response.json(result)
 })
 

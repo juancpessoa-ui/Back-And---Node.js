@@ -37,18 +37,16 @@ const insertAtividade = async function (atividade) {
 
 const updateAtividade = async function (atividade) {
     try {
-        let sql = ` insert into tbl_atividade(
-				    atividade
-                    )
-                    value(
-		            '${atividade.atividade}'
-                    );`
+        let sql = ` update tbl_atividade set
+				    atividade = '${atividade.atividade}'
+                    where id = ${atividade.id}
+                    ;`
     // Executar o scrip sql no Banco de Dados
     let result = await knexConex.raw(sql) // 
     if(result)
         return true
     else
-        return false
+        return false    
     } catch (error) {
         console.log(error)
         return false
@@ -57,9 +55,8 @@ const updateAtividade = async function (atividade) {
 
 const selectAllAtividade = async function () {
     try {
-
         //Script para retornar todos os filmes 
-        let sql =  `select * from tbl_filme order by id desc ` 
+        let sql =  `select * from tbl_atividade order by id desc ` 
         
         //execulta no banco de Dados o script SQL para retornar os filmes
         let result = await knexConex.raw(sql)
@@ -78,10 +75,39 @@ const selectAllAtividade = async function () {
 }
 
 const selectByIdAtividade = async function (id) {
-    
+    try {
+        let sql = `select * from tbl_atividade where id= ${id}`
+        
+        let result = await knexConex.raw(sql)
+
+        if(Array.isArray(result)){
+            return result[0]
+        }else{
+            return false
+        }
+
+
+    } catch (error) {
+        return false
+    }
+ 
 }
 
 const deleteAtividade = async function (id) {
+    try {
+        
+        let sql = `delete from tbl_atividade where id = ${id}`
+    
+    // Executa script                
+    let result = await knexConex.raw(sql)
+
+    if(result)
+        return true
+    else
+        return false
+    } catch (error) {
+        console.log(error)
+    }
     
 }
 
