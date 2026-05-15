@@ -99,7 +99,7 @@ app.delete('/v1/senai/locadora/filme/:id',  async function(request,response){
  
 /**************************************************************************************************************************************************************************************************************************************** */
 
- //ENDPOINTS
+ //ENDPOINTS ATIVIDADE
 
 
  // import das ControllerAtividade
@@ -127,15 +127,41 @@ app.get('/v1/senai/locadora/atividade', async function (request,response){
     response.json(result)
 })
 
+app.get('/v1/senai/locadora/atividade/:id', async function (request, response){
+    //Recebi via parametro
+    let id = request.params.id
+
+    let result= await controllerAtividade.buscarAtividade(id)
+
+    response.status(result.status_code)
+    response.json(result)
+})
 
 
+app.put('/v1/senai/locadora/atividade/:id', bodyParserJOSN, async function(request, response){
+    
+    //Recebe o content type da requisição 
+    let contentType = request.headers['content-type']
+    //Recebe o ID da requisição 
+    let id = request.params.id
+    //Recebe os dados da requisição 
+    let dados = request.body
+    
+    // Chama a função de atualizar na controller e encaminha os dados, id e content-type
+    //obedecendo a ordem de criação na função da controller. 
+    let result = await controllerAtividade.atualizarAtividade(dados,id,contentType)
 
-
-
-
+    response.status(result.status_code)
+    response.json(result)
+})
 
 
 
 app.listen(8080, function () {
     console.log('Api funcionando e aguardando novas requisições...')
 })
+
+/**************************************************************************************************************************************************************************************************************************************** */
+
+ //ENDPOINTS Nascionalidade
+

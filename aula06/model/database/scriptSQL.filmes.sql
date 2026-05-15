@@ -64,6 +64,14 @@ create table tbl_atividade(
 	id 				int not null primary key auto_increment,
     atividade 		varchar(80) not null
     );
+    
+    insert into tbl_atividade(
+				atividade
+    )
+    value(
+		'Roteirista, Colaboração com o roteiro'
+    );
+    
 
 create table tbl_nascionalidade(
 	id 				int not null primary key auto_increment,

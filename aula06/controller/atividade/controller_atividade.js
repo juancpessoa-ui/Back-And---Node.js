@@ -47,7 +47,7 @@ const atividadeDAO = require('../../model/DAO/atividade/atividade.js')
  const atualizarAtividade = async function(atividade ,id,contentType){
     let message = JSON.parse(JSON.stringify(config_message)) //(STATUS 400)
 
-   let message  = JSON.parse(JSON.stringify(config_message)) 
+
    
        try {
            if(String(contentType).toLocaleUpperCase() == 'APPLICATION/JSON'){
