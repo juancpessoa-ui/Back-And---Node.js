@@ -155,13 +155,99 @@ app.put('/v1/senai/locadora/atividade/:id', bodyParserJOSN, async function(reque
     response.json(result)
 })
 
+app.delete('/v1/senai/locadora/atividade/:id',  async function(request,response){
+    
+    
+    //Recebe o ID da requisição 
+    let id = request.params.id
+    
+    
+    // Chama a função de atualizar na controller e encaminha os dados, id e content-type
+    //obedecendo a ordem de criação na função da controller. 
+    let result = await controllerAtividade.excluirAtividade(id)
 
-
-app.listen(8080, function () {
-    console.log('Api funcionando e aguardando novas requisições...')
+    response.status(result.status_code)
+    response.json(result)
 })
+
+
 
 /**************************************************************************************************************************************************************************************************************************************** */
 
  //ENDPOINTS Nascionalidade
 
+ const controllerNascionalidade = require('./controller/nascionalidade/controller_nascionalidade.js')
+
+
+app.post('/v1/senai/locadora/nascionalidade', bodyParserJOSN, async function(request,response){
+    // Recebe o conteúdo dentro do body da requisição
+    let dados = request.body
+    // Recebe o content Type da função para validar se é um Json
+    let contentType = request.headers['content-type']
+
+    let result = await controllerNascionalidade.inserirNovaNascionalidade(dados,contentType)
+    
+    response.status(result.status_code)
+    response.json(result)
+
+
+})
+
+app.get('/v1/senai/locadora/nascionalidade/:id', async function (request,response){
+
+    let result = await controllerNascionalidade.listarNascionalidade()
+    
+    response.status(result.status_code)
+    response.json(result)
+})
+
+app.get('/v1/senai/locadora/nascionalidade/:id', async function (request, response){
+    //Recebi via parametro
+    let id = request.params.id
+
+    let result= await controllerNascionalidade.buscarNascionalidade(id)
+
+    response.status(result.status_code)
+    response.json(result)
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ app.listen(8080, function () {
+    console.log('Api funcionando e aguardando novas requisições...')
+})

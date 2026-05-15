@@ -127,7 +127,7 @@ const atividadeDAO = require('../../model/DAO/atividade/atividade.js')
         
  }
 
- //Função para buscar filme pelo ID
+ //Função para buscar  pelo ID
  const buscarAtividade = async function (id){
       let message  = JSON.parse(JSON.stringify(config_message)) //(STATUS 400)
    
@@ -147,6 +147,7 @@ const atividadeDAO = require('../../model/DAO/atividade/atividade.js')
                        
                        return message.DEFAUT_MESSAGE //200
                    }else{
+                    console.log(result)
                        return message.ERROR_NOT_FOND //404
                    }
                }else{
@@ -160,11 +161,14 @@ const atividadeDAO = require('../../model/DAO/atividade/atividade.js')
 
  //Função para excluir um filme
  const excluirAtividade = async function(id){
+    
+    let message  = JSON.parse(JSON.stringify(config_message)) 
+    
     try {
             // Validação do erro 400 e 404
             let resultBuscarId = await buscarAtividade(id)
             
-            //Validação para verificar se o status é verdadeiro (Se existe o filme)
+            //Validação para verificar se o status é verdadeiro 
             if(resultBuscarId.status){
              //Chamar função DAO para excluir o filme
                 let result = await atividadeDAO.deleteAtividade(id)

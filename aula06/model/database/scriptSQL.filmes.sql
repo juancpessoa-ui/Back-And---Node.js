@@ -40,7 +40,7 @@ insert into tbl_filme(
                             '50.70',
                             'https://br.web.img3.acsta.net/c_310_420/img/5b/ea/5bea1aeac3323aeaaf82449a34fafbbf.jpg'
 							);
-select * from tbl_filme;
+select * from tbl_nascionalidade;
 select * from tbl_filme order by id desc;
 
 delete from tbl_filme where id = 15;
@@ -77,6 +77,12 @@ create table tbl_nascionalidade(
 	id 				int not null primary key auto_increment,
     nascionalidade	varchar(80) not null
     );
+    
+    insert into tbl_nascionalidade(
+		nascionalidade
+				) values(
+                'Brasileiro'
+                );
   
 
 

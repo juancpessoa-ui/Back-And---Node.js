@@ -1,6 +1,7 @@
+# shift + alt+ p
 openapi: 3.0.3
 info:
-  title: Projeto do Filmes DS2M - SENAI Jandira
+  title: Projeto do Filmes DS2M - SENAI Jandira 
   description: API destinada para controlar Filmes
   termsOfService: http://swagger.io/terms/
   version: 1.0.4.26
