@@ -1,27 +1,27 @@
-/************************************************************************************************************************************************************************************************
- *Objetivo: Arquivo responsavel pela validação, tratamneto e manipulação de dados para o CRUD de filmes.
- * Data: 17/04/2026
+/***********************************************************************************************************************************************************************************
+ * objetivo: Arquivo responsavel pelo CRUD no banco de dados MySQL na tabela filme 
+ * Data: 20/05/2026
  * Autor: Juan Carlos
  * Versão: 1.0
- *****************************************************************************************************************************************************************************************************/ 
+ **************************************************************************************************************************************************************************************/
+
 //Import do arquivo de padronização de mensagens
 const config_message = require('../modulo/configMessages.js')
 
 //Import do arquivo DAO para fazer o CRUD do filme no banco de dados. 
-const filmeDAO = require('../../model/DAO/filme/filme.js')
+const classificacaoDAO = require('../../model/DAO/classificacao/classificacao.js')
 
-//Import de arquivos de controller 
-//const controller_classificação = require()
 
- //Função para inserir um novo filme(Json)
- const inserirNovoFilme = async function(filme,contentType){
+
+
+ const inserirNovaClassificacao = async function(classificacao,contentType){
     //Criando um clone do objeto json para manipular a sua estrutura local sem modificar a estrutura original. 
     let message  = JSON.parse(JSON.stringify(config_message)) //(STATUS 400)
 
     try {
         
         if(String(contentType).toLocaleUpperCase() == 'APPLICATION/JSON'){
-                let validar = await validarDados(filme)
+                let validar = await validarDados(classificacao)
             
                 // Se a função validar retornar um Json de erro, iremos devolver ao App o erro
                 if(validar){
@@ -29,13 +29,13 @@ const filmeDAO = require('../../model/DAO/filme/filme.js')
                 }else{
 
                     //Encaminha Dados do filme para o DAO
-                    let result = await filmeDAO.insertFilmes(filme)
+                    let result = await classificacaoDAO.insertClassificacao(classificacao)
                     if(result){ //201
-                        filme.id = result // criando atributo ID no Json do Filme e colocando o ID gerado após o insert
+                        classificacao.id = result // 
                         message.DEFAUT_MESSAGE.status = message.SUCCES_CREADT_ITEM.status
                         message.DEFAUT_MESSAGE.status_code = message.SUCCES_CREADT_ITEM.status_code
                         message.DEFAUT_MESSAGE.massage = message.SUCCES_CREADT_ITEM.message
-                        message.DEFAUT_MESSAGE.response = filme
+                        message.DEFAUT_MESSAGE.response = classificacao
                     }else{ //500
                         return message.ERROR_INTERNAL_SERVER_MODEL
                     }
@@ -218,42 +218,14 @@ const filmeDAO = require('../../model/DAO/filme/filme.js')
 }
 
  //Função para validar todos os dados de filmes (obrigatorio, qtde de caracteres,etc)
- const validarDados = async function (filme){
+ const validarDados = async function (classificacao){
 
     //Criando um clone do objeto json para manipular a sua estrutura local sem modificar a estrutura original. 
     let message  = JSON.parse(JSON.stringify(config_message)) //(STATUS 400)
-    console.log( filme.avaliacao.split('.')[0].length)
+    console.log( classificacao.avaliacao.split('.')[0].length)
     
-    if(filme.nome == undefined || filme.nome=== '' || filme.nome == null ||  filme.nome.length > 80){
+    if(classificacao.nome == undefined || classificacao.nome=== '' || classificacao.nome == null ||  classificacao.nome.length > 80){
         message.ERROR_BAD_REQUEST.field = '[NOME] INVALIDO'
-        return message.ERROR_BAD_REQUEST //400
-
-    }else if(filme.data_lancamento == undefined || filme.data_lancamento == '' || filme.data_lancamento == null ||  filme.data_lancamento.length != 10 ){
-        message.ERROR_BAD_REQUEST.field = '[DATA_LANÇAMNETO] INVALIDO'
-        return message.ERROR_BAD_REQUEST //400
-
-    }else if(filme.duracao == undefined || filme.duracao == '' || filme.duracao == null ||  filme.duracao.length < 5){
-        message.ERROR_BAD_REQUEST.field = '[DURACÃO] INVALIDO'
-        return message.ERROR_BAD_REQUEST //400
-
-    } else if(filme.sinopse == undefined || filme.sinopse == '' ||filme.sinopse == null  ){
-        message.ERROR_BAD_REQUEST.field = '[SINOPSE] INVALIDO'
-        return message.ERROR_BAD_REQUEST //400
-
-    }else if(isNaN(filme.avaliacao) || filme.avaliacao.split('.')[0].length > 1){
-        message.ERROR_BAD_REQUEST.field = '[AVALIACÃO] INVALIDO'
-        return message.ERROR_BAD_REQUEST //400
-
-    }else if(filme.valor == undefined || filme.valor == '' || filme.valor == null ||  filme.valor.split('.')[0].length > 3 || isNaN(filme.valor)){
-        message.ERROR_BAD_REQUEST.field = '[VALOR] INVALIDO'
-        return message.ERROR_BAD_REQUEST //400
-
-    }else if(filme.capa.length > 255){
-        message.ERROR_BAD_REQUEST.field = '[CAPA] INVALIDO'
-        return message.ERROR_BAD_REQUEST //400
-        // validação para FK da Classificação 
-    }else if(filme.id_classificacao == undefined || filme.id_classificacao == '' || filme.id_classificacao == null  || isNaN(filme.id_classificacao) || filme.id_classificacao <= 0  ){
-        message.ERROR_BAD_REQUEST.field = '[VALOR] INVALIDO'
         return message.ERROR_BAD_REQUEST //400
     }else{
         return false 
@@ -261,10 +233,6 @@ const filmeDAO = require('../../model/DAO/filme/filme.js')
  }
 
  module.exports = {
-    inserirNovoFilme,
-    atualizarFilme,
-    listarFilme,
-    buscarFilme,
-    excluirFilme,
+    inserirNovaClassificacao,
     validarDados
  }

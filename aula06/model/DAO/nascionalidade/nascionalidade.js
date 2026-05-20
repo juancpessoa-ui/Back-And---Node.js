@@ -34,11 +34,21 @@ const insertNascionalidade = async function (nascionalidade) {
 }
 
 
-const updateNascionalidade = async function (params) {
+const updateNascionalidade = async function (nascionalidade) {
     try {
+        let sql = `update tbl_nascionalidade set
+             nascionalidade = '${nascionalidade.nascionalidade}'
+                    where id = ${nascionalidade.id};`
         
+    // Executa script                
+    let result = await knexConex.raw(sql)
+
+    if(result)
+        return true
+    else
+        return false
     } catch (error) {
-        
+        return false
     }
 }
 
@@ -81,8 +91,21 @@ const selectByIdNascionalidade = async function (id) {
     }
 }
 
-const deleteNascionalidade = async function (params) {
+const deleteNascionalidade = async function (id) {
+    try {
+        
+        let sql = `delete from tbl_nascionalidade where id = ${id}`
     
+    // Executa script                
+    let result = await knexConex.raw(sql)
+
+    if(result)
+        return true
+    else
+        return false
+    } catch (error) {
+        console.log(error)
+    } 
 }
 
 module.exports = {

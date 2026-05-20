@@ -40,7 +40,7 @@ insert into tbl_filme(
                             '50.70',
                             'https://br.web.img3.acsta.net/c_310_420/img/5b/ea/5bea1aeac3323aeaaf82449a34fafbbf.jpg'
 							);
-select * from tbl_nascionalidade;
+select * from  tbl_classificacao;
 select * from tbl_filme order by id desc;
 
 delete from tbl_filme where id = 15;
@@ -58,8 +58,28 @@ where id = 11;
 
 delete from tbl_filme where id > 0;
 #***************************************************************************************************#
+#Criar CRUD Classificação
 
-#Criar tabelas 
+create table tbl_classificacao(
+	id  	int not null auto_increment primary key,
+    sigla  	varchar (15) not null,
+    nome 	varchar (50) not null,
+    descricaco varchar (200) not null
+);
+
+insert into tbl_classificacao ( sigla, 
+								nome, 
+                                descricaco)
+							value ('L', 
+									'livre', 
+                                    'Filme de classificação livre!'
+									),
+								  ('10', 
+                                  'Maior de 10 anos ', 
+                                  'Conteúdo sencivel para menores de 10 anos');
+
+
+#Criadas tabelas 
 create table tbl_atividade(
 	id 				int not null primary key auto_increment,
     atividade 		varchar(80) not null
@@ -71,7 +91,7 @@ create table tbl_atividade(
     value(
 		'Roteirista, Colaboração com o roteiro'
     );
-    
+    select * from tbl_atividade;
 
 create table tbl_nascionalidade(
 	id 				int not null primary key auto_increment,
@@ -81,8 +101,15 @@ create table tbl_nascionalidade(
     insert into tbl_nascionalidade(
 		nascionalidade
 				) values(
-                'Brasileiro'
+                'Argentino'
                 );
-  
+  delete from tbl_atividade where id = 9;
+desc tbl_filme
+select * from tbl_nascionalidade;
 
+update tbl_nascionalidade set
+			nascionalidade = 'Jamaica'
+            where id = 6 ;
+desc tbl_nascionalidade;
 
+select * from tbl_nascionalidade;

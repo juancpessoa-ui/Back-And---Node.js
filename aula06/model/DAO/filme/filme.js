@@ -28,7 +28,8 @@ const insertFilmes = async function(filme){
                             sinopse, 
                             avaliacao, 
                             valor, 
-                            capa
+                            capa,
+                            id_classificacao
                             ) 
                             values (
                                 '${filme.nome}', 
@@ -37,7 +38,8 @@ const insertFilmes = async function(filme){
                                 '${filme.sinopse}',
                                 if ('${filme.avaliacao}' = '', null,'${filme.avaliacao}'),
                                 '${filme.valor}',
-                                '${filme.capa}'
+                                '${filme.capa}',
+                                '${filme.id_classificacao}'
                                 ); ` // usar a `` devido as concatenações. 
 
         //Execultar o scrip sql no Banco de Dados
@@ -65,8 +67,10 @@ const updatefilme = async function(filme){
                     sinopse         = '${filme.sinopse}',
                     avaliacao       = if ('${filme.avaliacao}' = '', null,'${filme.avaliacao}'),
                     valor           = '${filme.valor}',
-                    capa            = '${filme.capa}'
-                    where id        = ${filme.id}`
+                    capa            = '${filme.capa}',
+                    id_classificacao = '${filme.classificacao}'
+                        where id        = ${filme.id}`
+                    
                     
     // Executa script                
     let result = await knexConex.raw(sql)

@@ -193,7 +193,7 @@ app.post('/v1/senai/locadora/nascionalidade', bodyParserJOSN, async function(req
 
 })
 
-app.get('/v1/senai/locadora/nascionalidade/:id', async function (request,response){
+app.get('/v1/senai/locadora/nascionalidade', async function (request,response){
 
     let result = await controllerNascionalidade.listarNascionalidade()
     
@@ -211,9 +211,58 @@ app.get('/v1/senai/locadora/nascionalidade/:id', async function (request, respon
     response.json(result)
 })
 
+app.put('/v1/senai/locadora/nascionalidade/:id', bodyParserJOSN, async function(request, response){
+    
+    //Recebe o content type da requisição 
+    let contentType = request.headers['content-type']
+    //Recebe o ID da requisição 
+    let id = request.params.id
+    //Recebe os dados da requisição 
+    let dados = request.body
+    
+    // Chama a função de atualizar na controller e encaminha os dados, id e content-type
+    //obedecendo a ordem de criação na função da controller. 
+    let result = await controllerNascionalidade.atualizarNascionalidade(dados,id,contentType)
+
+    response.status(result.status_code)
+    response.json(result)
+})
+
+app.delete('/v1/senai/locadora/nascionalidade/:id',  async function(request,response){
+    
+    
+    //Recebe o ID da requisição 
+    let id = request.params.id
+    
+    
+    // Chama a função de atualizar na controller e encaminha os dados, id e content-type
+    //obedecendo a ordem de criação na função da controller. 
+    let result = await controllerNascionalidade.excluirNascionalidade(id)
+
+    response.status(result.status_code)
+    response.json(result)
+})
 
 
+/**************************************************************************************************************************************************************************************************************************************** */
 
+ //ENDPOINTS Nascionalidade
+
+ const controllerClassificação = require('./controller/classificacao/controller_classificacao.js')
+
+
+app.post('/v1/senai/locadora/classificacao', bodyParserJOSN, async function(request,response){
+    // Recebe o conteúdo dentro do body da requisição
+    let dados = request.body
+    // Recebe o content Type da função para validar se é um Json
+    let contentType = request.headers['content-type']
+
+    let result = await controllerClassificação.inserirNovaClassificacao(dados,contentType)
+    
+    response.status(result.status_code)
+    response.json(result)
+
+})
 
 
 
