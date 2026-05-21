@@ -31,7 +31,6 @@ const classificacaoDAO = require('../../model/DAO/classificacao/classificacao.js
                     //Encaminha Dados do filme para o DAO
                     let result = await classificacaoDAO.insertClassificacao(classificacao)
                     if(result){ //201
-                        classificacao.id = result // 
                         message.DEFAUT_MESSAGE.status = message.SUCCES_CREADT_ITEM.status
                         message.DEFAUT_MESSAGE.status_code = message.SUCCES_CREADT_ITEM.status_code
                         message.DEFAUT_MESSAGE.massage = message.SUCCES_CREADT_ITEM.message
@@ -222,10 +221,10 @@ const classificacaoDAO = require('../../model/DAO/classificacao/classificacao.js
 
     //Criando um clone do objeto json para manipular a sua estrutura local sem modificar a estrutura original. 
     let message  = JSON.parse(JSON.stringify(config_message)) //(STATUS 400)
-    console.log( classificacao.avaliacao.split('.')[0].length)
+    
     
     if(classificacao.nome == undefined || classificacao.nome=== '' || classificacao.nome == null ||  classificacao.nome.length > 80){
-        message.ERROR_BAD_REQUEST.field = '[NOME] INVALIDO'
+        message.ERROR_BAD_REQUEST.field = '[Classificacao] INVALIDO'
         return message.ERROR_BAD_REQUEST //400
     }else{
         return false 
