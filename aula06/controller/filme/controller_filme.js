@@ -10,6 +10,11 @@ const config_message = require('../modulo/configMessages.js')
 //Import do arquivo DAO para fazer o CRUD do filme no banco de dados. 
 const filmeDAO = require('../../model/DAO/filme/filme.js')
 
+//import
+const controller_classificacao = require('../classificacao/controller_classificacao.js')
+const controller_filmeGenero = require('../filme/controller_filmeGenero.js')
+
+
 //Import de arquivos de controller 
 //const controller_classificação = require()
 
@@ -32,6 +37,23 @@ const filmeDAO = require('../../model/DAO/filme/filme.js')
                     let result = await filmeDAO.insertFilmes(filme)
                     if(result){ //201
                         filme.id = result // criando atributo ID no Json do Filme e colocando o ID gerado após o insert
+
+                        //Manipulação de dados para inserir os generos do filme
+                        for(genero of filme.genero){
+                        // Cria o objeto Json com os IDs do filme e do Genero
+                                let filmeGenero = { "id_filme" : filme.id,
+                                                    "id_genero": genero.id  
+                                        }
+                        // Chama a controller do filme genero para inserir os IDs                 
+                            let resultInsertGenero = await controller_filmeGenero.inserirNovoFilmeGenero(filmeGenero)
+                            if(!resultInsertGenero.status){
+                                return message.SUCCES_CREADT_ITEM_WARNIRG // 201 com alerta e dados inseridos. 
+                            }else{
+
+                            }
+                        }
+
+
                         message.DEFAUT_MESSAGE.status = message.SUCCES_CREADT_ITEM.status
                         message.DEFAUT_MESSAGE.status_code = message.SUCCES_CREADT_ITEM.status_code
                         message.DEFAUT_MESSAGE.massage = message.SUCCES_CREADT_ITEM.message
@@ -125,6 +147,12 @@ const filmeDAO = require('../../model/DAO/filme/filme.js')
                     if(resultClassificacao.status) {
                         filme.classificacao = resultClassificacao.response.classificacao //Cria o atributoclassificacao e adiciona os dados referente a classificacao. 
                         delete filme.id_classificacao // deleta id_classificacao e traz a atributo classificacao para não ficar repetido. 
+                    }
+
+                    //cria o objeto de geneos relacionados ao filme
+                    let resultGenero = await controller_filmeGenero.buscarGeneroidFilme(filme.id)
+                    if(resultGenero.status){
+                        filme.genero = resultGenero.response.filme_filme_genero 
                     }
 
                 }

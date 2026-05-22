@@ -33,6 +33,9 @@ const SUCCES_UPDATED_ITEM = {status: true, status_code: 200, message: 'Registro 
 // retorno para delite
 const SUCCES_DELETED_ITEM = {status: true, status_code: 200, message: 'Registro deletado com sucesso'}
 
+//Mensagens de sucesso da API
+const SUCCES_CREADT_ITEM_WARNIRG  = {status: true, status_code: 201, message: 'Oss dados principais foram inseridos com sucesso podem alguns apresentaram problemas.'}
+
 
 module.exports = {
     DEFAUT_MESSAGE,
@@ -44,5 +47,6 @@ module.exports = {
     ERROR_NOT_FOND,
     SUCCES_RESPONSE,
     SUCCES_UPDATED_ITEM,
-    SUCCES_DELETED_ITEM
+    SUCCES_DELETED_ITEM,
+    SUCCES_CREADT_ITEM_WARNIRG
 }

@@ -127,3 +127,8 @@ insert into tbl_classificacao (sigla,
 									'avaliação', 
                                     'jsdjsjfnsf'
 									);
+                                    
+select * from tbl_filme;
+select * from tbl_classificacao;
+select * from tbl_genero;
+select * from tbl_filme_filme_genero;
