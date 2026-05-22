@@ -19,6 +19,8 @@ create table tbl_filme(
 
 show tables;
 
+select * from tbl_filme;
+
 #Inseriri Dados 
 insert into tbl_filme(
 						nome, 
@@ -27,7 +29,8 @@ insert into tbl_filme(
                         sinopse, 
                         avaliacao, 
                         valor, 
-                        capa
+                        capa,
+                        id_clasificacao
                         ) 
 						values (
 							'C', 
@@ -39,6 +42,7 @@ insert into tbl_filme(
                             '3',
                             '50.70',
                             'https://br.web.img3.acsta.net/c_310_420/img/5b/ea/5bea1aeac3323aeaaf82449a34fafbbf.jpg'
+                            '5'
 							);
 select * from  tbl_classificacao;
 select * from tbl_filme order by id desc;
@@ -105,7 +109,8 @@ create table tbl_nascionalidade(
                 );
   delete from tbl_atividade where id = 9;
 desc tbl_filme
-select * from tbl_nascionalidade;
+
+select * from tbl_nascionalidade
 
 update tbl_nascionalidade set
 			nascionalidade = 'Jamaica'
@@ -113,3 +118,12 @@ update tbl_nascionalidade set
 desc tbl_nascionalidade;
 
 select * from tbl_nascionalidade;
+
+insert into tbl_classificacao (sigla,
+                                nome,
+                                descricaco)
+							    values 
+                                    ('A', 
+									'avaliação', 
+                                    'jsdjsjfnsf'
+									);

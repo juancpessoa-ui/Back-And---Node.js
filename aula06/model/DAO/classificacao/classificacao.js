@@ -21,9 +21,10 @@ const insertClassificacao = async function(classificacao){
     try {
         
         let sql = `insert into tbl_classificacao (sigla,
-                                nome 
+                                nome, 
                                 descricaco)
-							    value ('${classificacao.sigla}', 
+							    values 
+                                    ('${classificacao.sigla}', 
 									'${classificacao.nome}', 
                                     '${classificacao.descricaco}'
 									); ` // usar a `` devido as concatenações. 
