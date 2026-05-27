@@ -253,7 +253,7 @@ app.delete('/v1/senai/locadora/nascionalidade/:id',  async function(request,resp
  //ENDPOINTS CLASSIFICAÇÃO
 
  // import das Controller
- const controllerClassificação = require('./controller/classificacao/controller_classificacao.js')
+ const controllerClassificacao = require('./controller/classificacao/controller_classificacao.js')
 
 
 app.post('/v1/senai/locadora/classificacao', bodyParserJOSN, async function(request,response){
@@ -262,30 +262,31 @@ app.post('/v1/senai/locadora/classificacao', bodyParserJOSN, async function(requ
     // Recebe o content Type da função para validar se é um Json
     let contentType = request.headers['content-type']
 
-    let result = await controllerClassificação.inserirNovaClassificacao(dados,contentType)
+    let result = await controllerClassificacao.inserirNovaClassificacao(dados,contentType)
     
     response.status(result.status_code)
     response.json(result)
 
 })
 
-app.get('/v1/senai/locadora/genero', async function (request, response) {
-    let result = await controllerClassificação.listarClassificacao(dados,contentType)
+app.get('/v1/senai/locadora/classificacao', async function (request, response) {
+   
+    let result = await controllerClassificacao.listarClassificacao()
 
     response.status(result.status_code)
     response.json(result)
 })
 
-app.get('/v1/senai/locadora/genero/:id', async function (request, response) {
+app.get('/v1/senai/locadora/classificacao:id', async function (request, response) {
     let id = request.params.id
     
-    let result = await controllerClassificação.buscarClassificacao(dados,contentType)
+    let result = await controllerClassificacao.buscarClassificacao(id)
 
     response.status(result.status_code)
     response.json(result)
 })
 
-app.put('/v1/senai/locadora/genero/:id', bodyParserJOSN, async function(request, response) {
+app.put('/v1/senai/locadora/classificacao:id', bodyParserJOSN, async function(request, response) {
     
     //Recebe o contenty type da requisição
     let contentType = request.headers['content-type']
@@ -298,19 +299,19 @@ app.put('/v1/senai/locadora/genero/:id', bodyParserJOSN, async function(request,
 
     //Chama a função de atualizar na controller e encaminhando os dados, id e content-type
     //obedecendo a ordem de criação na função da controller
-    let result = await controllerClassificação.atualizarClassificacao(dados, id, contentType)
+    let result = await controllerClassificacao.atualizarClassificacao(dados, id, contentType)
 
     response.status(result.status_code)
     response.json(result)
 
 })
 
-app.delete('/v1/senai/locadora/genero/:id', async function(request, response) {
+app.delete('/v1/senai/locadora/classificacao:id', async function(request, response) {
     
 
     let id = request.params.id
 
-    let result = await controllerClassificação.excluirClassificacao(id)
+    let result = await controllerClassificacao.excluirClassificacao(id)
 
     response.status(result.status_code)
     response.json(result)

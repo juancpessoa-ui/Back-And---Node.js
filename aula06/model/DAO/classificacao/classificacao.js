@@ -100,10 +100,27 @@ const selectByIdClassificacao = async function (id) {
     }
  
 }
+ const deleteClassificacao = async function(id) {
+    try {
+        
+        let sql = `delete from tbl_classificacao where id = ${id}`
+    
+    // Executa script                
+    let result = await knexConex.raw(sql)
 
+    if(result)
+        return true
+    else
+        return false
+    } catch (error) {
+        console.log(error)
+    }
+    
+ }
 module.exports = {
     insertClassificacao,
     updateClassificacao,
     selectAllClassificacao,
-    selectByIdClassificacao
+    selectByIdClassificacao,
+    deleteClassificacao
  }

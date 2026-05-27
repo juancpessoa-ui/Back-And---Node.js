@@ -130,7 +130,7 @@ const classificacaoDAO = require('../../model/DAO/classificacao/classificacao.js
                 message.DEFAUT_MESSAGE.status = message.SUCCES_RESPONSE.status
                 message.DEFAUT_MESSAGE.status_code = message.SUCCES_RESPONSE.status_code
                 message.DEFAUT_MESSAGE.response.count = result.length
-                message.DEFAUT_MESSAGE.response.filme = result
+                message.DEFAUT_MESSAGE.response.classificacao = result
                 
                 return message.DEFAUT_MESSAGE// 200(dados do filme)
             }else{
@@ -160,7 +160,7 @@ const classificacaoDAO = require('../../model/DAO/classificacao/classificacao.js
             return message.ERROR_BAD_REQUEST //400
         }else{
             let result = await classificacaoDAO.selectByIdClassificacao(id)
-
+            
             if(result){
                 if(result.length > 0){
                     message.DEFAUT_MESSAGE.status = message.SUCCESS_RESPONSE.status
