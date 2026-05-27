@@ -10,8 +10,7 @@
  const cors = require('cors')
  const bodyParser = require('body-parser')
 
- // import das Controller
- const controllerFilmes= require('./controller/filme/controller_filme.js')
+// CONST UTILIZADAS:
 
  //Cria um objeto  para manipular ddos body da APi em formato JSon
 const bodyParserJOSN = bodyParser.json()
@@ -28,8 +27,12 @@ const bodyParserJOSN = bodyParser.json()
  
  //configura as permissões da API através do CORS
  app.use(cors(corsOptions))
- 
- //ENDPOINTS
+
+ /************************************************************************************************************************************************************************************************************************************************************************************************************************************************************ */
+ //ENDPOINTS FILME
+
+ // import das Controller
+ const controllerFilmes= require('./controller/filme/controller_filme.js')
 
 app.post('/v1/senai/locadora/filme', bodyParserJOSN, async function(request,response){
     // Recebe o conteúdo dentro do body da requisição
@@ -47,7 +50,7 @@ app.post('/v1/senai/locadora/filme', bodyParserJOSN, async function(request,resp
 
 app.get('/v1/senai/locadora/filme', async function (request, response){
     let result = await controllerFilmes.listarFilme()
-    
+
     response.status(result.status_code)
     response.json(result)
 })
@@ -97,12 +100,12 @@ app.delete('/v1/senai/locadora/filme/:id',  async function(request,response){
  //serve para inicializar a Api para receber requisições
 
  
-/**************************************************************************************************************************************************************************************************************************************** */
+/******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************* */
 
  //ENDPOINTS ATIVIDADE
 
 
- // import das ControllerAtividade
+// import das Controller
  const controllerAtividade = require('./controller/atividade/controller_atividade.js')
 
 
@@ -174,8 +177,9 @@ app.delete('/v1/senai/locadora/atividade/:id',  async function(request,response)
 
 /**************************************************************************************************************************************************************************************************************************************** */
 
- //ENDPOINTS Nascionalidade
+ //ENDPOINTS NASCIONALIDADE
 
+ // import das Controller
  const controllerNascionalidade = require('./controller/nascionalidade/controller_nascionalidade.js')
 
 
@@ -246,8 +250,9 @@ app.delete('/v1/senai/locadora/nascionalidade/:id',  async function(request,resp
 
 /**************************************************************************************************************************************************************************************************************************************** */
 
- //ENDPOINTS Nascionalidade
+ //ENDPOINTS CLASSIFICAÇÃO
 
+ // import das Controller
  const controllerClassificação = require('./controller/classificacao/controller_classificacao.js')
 
 
@@ -264,8 +269,58 @@ app.post('/v1/senai/locadora/classificacao', bodyParserJOSN, async function(requ
 
 })
 
-/**************************************************************************************************************** */
+app.get('/v1/senai/locadora/genero', async function (request, response) {
+    let result = await controllerClassificação.listarClassificacao(dados,contentType)
 
+    response.status(result.status_code)
+    response.json(result)
+})
+
+app.get('/v1/senai/locadora/genero/:id', async function (request, response) {
+    let id = request.params.id
+    
+    let result = await controllerClassificação.buscarClassificacao(dados,contentType)
+
+    response.status(result.status_code)
+    response.json(result)
+})
+
+app.put('/v1/senai/locadora/genero/:id', bodyParserJOSN, async function(request, response) {
+    
+    //Recebe o contenty type da requisição
+    let contentType = request.headers['content-type']
+
+    //Receber o ID do registro a ser atulizado
+    let id = request.params.id
+
+    //Receber os dados enviados no corpo de requisição
+    let dados = request.body
+
+    //Chama a função de atualizar na controller e encaminhando os dados, id e content-type
+    //obedecendo a ordem de criação na função da controller
+    let result = await controllerClassificação.atualizarClassificacao(dados, id, contentType)
+
+    response.status(result.status_code)
+    response.json(result)
+
+})
+
+app.delete('/v1/senai/locadora/genero/:id', async function(request, response) {
+    
+
+    let id = request.params.id
+
+    let result = await controllerClassificação.excluirClassificacao(id)
+
+    response.status(result.status_code)
+    response.json(result)
+
+})
+
+/**************************************************************************************************************** */
+//ENDPOINTS GENERO
+
+// import das Controller
 const controllerGenero = require('./controller/genero/controller_genero.js')
 
 

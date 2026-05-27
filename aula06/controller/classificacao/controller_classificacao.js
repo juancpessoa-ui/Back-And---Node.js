@@ -51,33 +51,33 @@ const classificacaoDAO = require('../../model/DAO/classificacao/classificacao.js
 }
 
  //Função para atualizar filme 
- const atualizarFilme = async function(filme,id,contentType){
+ const atualizarClassificacao = async function(classificacao,id,contentType){
     let message  = JSON.parse(JSON.stringify(config_message)) 
 
     try {
         if(String(contentType).toLocaleUpperCase() == 'APPLICATION/JSON'){
-                let resultBuscarId = await buscarFilme(id)
+                let resultBuscarId = await buscarClassificacao(id)
 
-            // se a função buscar encontrar o filme o atributo status do Json será verdadeiro
+            // se a função buscar encontrar o classificacao o atributo status do Json será verdadeiro
             // isso signicica que o filme existe na base, caso não retorne true, então 
             // o retorno da função poderá ser 400 ou 404 até mesmo um 500
             if(resultBuscarId.status){
-                let validar = await validarDados(filme)
+                let validar = await validarDados(classificacao)
                 
 
                 //Validação de Campos Obrigatorios para a atualização
                 if(!validar){
 
-                    // Adiciona o atributo ID do filme no Json para ser enviado ao DAO
-                    filme.id = id
+                    // Adiciona o atributo ID do classificacao no Json para ser enviado ao DAO
+                    classificacao.id = id
 
-                    //Chama a função do DAO para atualizar o Filme (Dados e o ID)
-                    let result = await filmeDAO.updatefilme(filme)
+                    //Chama a função do DAO para atualizar o classificacao (Dados e o ID)
+                    let result = await classificacaoDAO.updateClassificacao(classificacao)
                     if(result){
                         message.DEFAUT_MESSAGE.status = message.SUCCES_UPDATED_ITEM.status
                         message.DEFAUT_MESSAGE.status_code = message.SUCCES_UPDATED_ITEM.status_code
                         message.DEFAUT_MESSAGE.message = message.SUCCES_UPDATED_ITEM.message
-                        message.DEFAUT_MESSAGE.response = filme
+                        message.DEFAUT_MESSAGE.response = classificacao
 
                         return message.DEFAUT_MESSAGE // 200(atualizado)
 
@@ -103,7 +103,7 @@ const classificacaoDAO = require('../../model/DAO/classificacao/classificacao.js
 
 
  //Função para reornar todos os filmes
- const listarFilme= async function(){
+ const listarClassificacao= async function(){
     let message  = JSON.parse(JSON.stringify(config_message)) //(STATUS 400)
 
     try {
@@ -147,74 +147,66 @@ const classificacaoDAO = require('../../model/DAO/classificacao/classificacao.js
  }
 
  //Função para buscar filme pelo ID
- const buscarFilme = async function (id){
-    let message  = JSON.parse(JSON.stringify(config_message)) //(STATUS 400)
-
+ const buscarClassificacao = async function(id){
+    
+    //Criando um clone do objeto JSON para manipular a sua estrutura local sem
+    //modificar a estrutura original
+    let message = JSON.parse(JSON.stringify(config_message))
+    
     try {
-        //Validação para garantir que id seja valido
+        //Validaçção para garantir que o ID seja válido
         if(id == undefined || id == '' || id == null ||  isNaN(id)){
-            message.ERROR_BAD_REQUEST.field = '[ID INVÁLIDO]'
+            message.ERROR_BAD_REQUEST.field = '[ID] INVÁLIDO'
             return message.ERROR_BAD_REQUEST //400
         }else{
-            let result = await filmeDAO.selectByIdFilme(id)
+            let result = await classificacaoDAO.selectByIdClassificacao(id)
 
             if(result){
                 if(result.length > 0){
+                    message.DEFAUT_MESSAGE.status = message.SUCCESS_RESPONSE.status
+                    message.DEFAUT_MESSAGE.status_code = message.SUCCESS_RESPONSE.status_code
+                    message.DEFAUT_MESSAGE.response.classificacao = result
 
-                    for(filme of result){
-                        // Busca na controller da Classificação o ID referente aos Dados.
-                        let resultClassificacao = await controller_classificação.buscarClassificacao(filme.id_classificacao)
-                        // Se a classificacao for encontrata
-                        if(resultClassificacao.status) {                            filme.classificacao = resultClassificacao.response.classificacao //Cria o atributoclassificacao e adiciona os dados referente a classificacao. 
-                            delete filme.id_classificacao // deleta id_classificacao e traz a atributo classificacao para não ficar repetido. 
-                        }
-                    }    
-
-                    message.DEFAUT_MESSAGE.status = message.SUCCES_RESPONSE.status
-                    message.DEFAUT_MESSAGE.status_code = message.SUCCES_RESPONSE.status_code
-                    message.DEFAUT_MESSAGE.response.filme = result
-                    
                     return message.DEFAUT_MESSAGE //200
                 }else{
-                    return message.ERROR_NOT_FOND //404
+                    return message.ERROR_NOT_FOUND //404
                 }
             }else{
-                return message.ERROR_INTERNAL_SERVER_MODEL// 500(MODEL)
+                return message.ERROR_INTERNAL_SERVER_MODEL //500 (Model)
             }
-        }     
-    } catch (error) {
-        return message.ERROR_INTERNAL_SERVER_CONTROLLER //500 (CONTROLLER)
-    }
- }
-
- //Função para excluir um filme
- const excluirFilme = async function(id){
-    
-    let message  = JSON.parse(JSON.stringify(config_message)) 
-    
-    try {
-        // Validação do erro 400 e 404
-        let resultBuscarId = await buscarFilme(id)
-        
-        //Validação para verificar se o status é verdadeiro (Se existe o filme)
-        if(resultBuscarId.status){
-         //Chamar função DAO para excluir o filme
-            let result = await filmeDAO.deleteFilme(id)
-            if(result){
-                return message.SUCCES_DELETED_ITEM //(registro excluido)
-            }else{
-                return message.ERROR_INTERNAL_SERVER_MODEL // Erro na model 
-                }
-        }else{
-            return resultBuscarId
         }
-            
-        
-        
     } catch (error) {
-        return message.ERROR_INTERNAL_SERVER_CONTROLLER // 500(CONTROLLER)
+        return message.ERROR_INTERNAL_SERVER_CONTROLLER //500
     }
 }
+
+//Função para excluir um classificacao
+const excluirClassificacao = async function(id){
+
+    let message = JSON.parse(JSON.stringify(config_message))
+    
+    try {
+        //Validação do erro 400 e 404
+        let resultBuscarID = await buscarClassificacao(id)
+
+        //Validação para verificar se o status é verdadeiro(se existe o classificacao)
+        if(resultBuscarID.status){
+            //Chamar a função do DAO para excluir o classificacao
+            let result = await classificacaoDAO.deleteClassificacao(id)
+
+            if(result){
+                return message.SUCCESS_DELETED_ITEM //200 (Registro excluído)
+            }else{
+                return message.ERROR_INTERNAL_SERVER_MODEL //500 (Model)
+            }
+        }else{
+            return resultBuscarID //400 ou 404
+        }
+    } catch (error) {
+        return message.ERROR_INTERNAL_SERVER_CONTROLLER //500 (controller)
+    }
+}
+
 
  //Função para validar todos os dados de filmes (obrigatorio, qtde de caracteres,etc)
  const validarDados = async function (classificacao){
@@ -233,5 +225,9 @@ const classificacaoDAO = require('../../model/DAO/classificacao/classificacao.js
 
  module.exports = {
     inserirNovaClassificacao,
+    atualizarClassificacao,
+    buscarClassificacao,
+    listarClassificacao,
+    excluirClassificacao,
     validarDados
  }

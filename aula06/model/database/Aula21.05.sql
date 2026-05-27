@@ -8,6 +8,7 @@ select * from tbl_classificacao;
 select * from tbl_genero;
 select * from tbl_filme_filme_genero;
 
+
 #relacionamneto entre tabelas
 # INNER JOIN
 ## inner join é a linha de relacionamneto / Inner : só retorna o que estiver relacionado. 

@@ -42,6 +42,68 @@ const insertClassificacao = async function(classificacao){
     }
 }  
 
+const updateClassificacao = async function (classificacao) {
+    try {
+        let sql = ` update tbl_classificacao set
+                                sigla = '${sigla.silga}', 
+								nome  = '${nome.nome}', 
+                                descricaco '${descricaco.descricaco}'
+                                where id = ${classificacao.id}
+                    ;`
+    // Executar o scrip sql no Banco de Dados
+    let result = await knexConex.raw(sql) // 
+    if(result)
+        return true
+    else
+        return false    
+    } catch (error) {
+        console.log(error)
+        return false
+    }     
+}
+const selectAllClassificacao = async function() {
+    try {
+
+        //Script para retornar todos os filmes 
+        let sql =  `select * from tbl_classificacao order by id desc ` 
+        
+        //execulta no banco de Dados o script SQL para retornar os filmes
+        let result = await knexConex.raw(sql)
+
+        //Validação para verificar se o retorno no Bd é um Array
+        //Se o scriptSQL de erro, o banco não devolve um array 
+        if(Array.isArray(result)){
+            return result[0]
+        }else{
+            return false
+        }
+
+    } catch (error) {
+        return false
+    }
+}
+const selectByIdClassificacao = async function (id) {
+    try {
+        let sql = `select * from tbl_classificacao where id= ${id}`
+        
+        let result = await knexConex.raw(sql)
+
+        if(Array.isArray(result)){
+            return result[0]
+        }else{
+            return false
+        }
+
+
+    } catch (error) {
+        return false
+    }
+ 
+}
+
 module.exports = {
     insertClassificacao,
+    updateClassificacao,
+    selectAllClassificacao,
+    selectByIdClassificacao
  }

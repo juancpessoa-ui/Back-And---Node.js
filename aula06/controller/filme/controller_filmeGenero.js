@@ -237,6 +237,27 @@ const buscarGeneroidFilme = async function (idFilme) {
 
 }
 
+//Função para excluir os generos relacinados com o filme
+
+const excluirGenerosIdFilme = async function (idFilme) {
+    let message = JSON.parse(JSON.stringify(config_message))
+
+    try {
+        
+            let result = await filmeGeneroDAO.deleteFilmebyidGenero(idFilme)
+            if (result) {
+                return message.SUCCESS_DELETE_ITEM //200(Registro excluido)
+            } else {
+                return message.ERROR_INTERNAL_SERVER_MODEL
+            }
+         
+
+    } catch (error) {
+        return message.ERROR_INTERNAL_SERVER_CONTROLLER//500(controller)
+    }
+
+
+}
 
 module.exports = {
     inserirNovoFilmeGenero,
@@ -246,5 +267,6 @@ module.exports = {
     atualizarFilmeGenero,
     excluirFilmeGenero,
     buscarFilmeidGenero,
-    buscarGeneroidFilme
+    buscarGeneroidFilme,
+    excluirGenerosIdFilme
 }
