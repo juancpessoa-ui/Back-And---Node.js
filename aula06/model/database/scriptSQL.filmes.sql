@@ -110,7 +110,7 @@ create table tbl_nascionalidade(
   delete from tbl_atividade where id = 9;
 desc tbl_filme
 
-select * from tbl_nascionalidade
+select * from tbl_nascionalidade;
 
 update tbl_nascionalidade set
 			nascionalidade = 'Jamaica'

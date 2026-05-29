@@ -45,9 +45,9 @@ const insertClassificacao = async function(classificacao){
 const updateClassificacao = async function (classificacao) {
     try {
         let sql = ` update tbl_classificacao set
-                                sigla = '${sigla.silga}', 
-								nome  = '${nome.nome}', 
-                                descricaco '${descricaco.descricaco}'
+                                sigla = '${classificacao.sigla}', 
+								nome  = '${classificacao.nome}', 
+                                descricaco = '${classificacao.descricaco}'
                                 where id = ${classificacao.id}
                     ;`
     // Executar o scrip sql no Banco de Dados
@@ -113,7 +113,7 @@ const selectByIdClassificacao = async function (id) {
     else
         return false
     } catch (error) {
-        console.log(error)
+        return false
     }
     
  }

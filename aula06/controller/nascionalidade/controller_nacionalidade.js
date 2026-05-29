@@ -8,11 +8,11 @@
 const config_message = require('../modulo/configMessages.js')
 
 //Import do arquivo DAO para fazer o CRUD do filme no banco de dados. 
-const nascionalidadeDAO = require('../../model/DAO/nascionalidade/nascionalidade.js')
+const nacionalidadeDAO = require('../../model/DAO/nascionalidade/nacionalidade.js')
 
 // Funcão para inserir nova Nascionalidade no Banco
 
-const  inserirNovaNascionalidade = async function(nascionalidade ,contentType) {
+const  inserirNovaNacionalidade = async function(nacionalidade ,contentType) {
 
     let message = JSON.parse(JSON.stringify(config_message)) //(STATUS 400)
     
@@ -24,7 +24,7 @@ const  inserirNovaNascionalidade = async function(nascionalidade ,contentType) {
                     return validar
                 }else{
     
-                    let result = await nascionalidadeDAO.insertNascionalidade(nascionalidade)
+                    let result = await nacionalidadeDAO.insertNascionalidade(nascionalidade)
                     if(result){//201
                         nascionalidade.id = result //criando atributo ID no Json da Atividdade
                         message.DEFAUT_MESSAGE.status = message.SUCCES_CREADT_ITEM.status
@@ -47,7 +47,7 @@ const  inserirNovaNascionalidade = async function(nascionalidade ,contentType) {
 
 // Função para atualizar Nascionalidade no Banco 
 
-const atualizarNascionalidade = async function(nascionalidade, id,contentType) {
+const atualizarNacionalidade = async function(nacionalidade, id,contentType) {
      let message = JSON.parse(JSON.stringify(config_message)) //(STATUS 400)
     
     
@@ -60,7 +60,7 @@ const atualizarNascionalidade = async function(nascionalidade, id,contentType) {
                    // isso signicica que o atividade existe na base, caso não retorne true, então 
                    // o retorno da função poderá ser 400 ou 404 até mesmo um 500
                    if(resultBuscarId.status){
-                       let validar = await validarDados(nascionalidade)
+                       let validar = await validarDados(nacionalidade)
                        
        
                        //Validação de Campos Obrigatorios para a atualização
@@ -70,7 +70,7 @@ const atualizarNascionalidade = async function(nascionalidade, id,contentType) {
                            nascionalidade.id = id
        
                            //Chama a função do DAO para atualizar o Atividade (Dados e o ID)
-                           let result = await nascionalidadeDAO.updateNascionalidade(nascionalidade)
+                           let result = await nacionalidadeDAO.updateNascionalidade(nacionalidade)
                            if(result){
                                message.DEFAUT_MESSAGE.status = message.SUCCES_UPDATED_ITEM.status
                                message.DEFAUT_MESSAGE.status_code = message.SUCCES_UPDATED_ITEM.status_code
@@ -100,12 +100,12 @@ const atualizarNascionalidade = async function(nascionalidade, id,contentType) {
 }
 
 // Função que lista Nascionalidade 
-const listarNascionalidade = async function () {
+const listarNacionalidade = async function () {
 
     let message = JSON.parse(JSON.stringify(config_message)) //(STATUS 400)
     
         try {
-            let result = await nascionalidadeDAO.selectAllNascionalidade()
+            let result = await nacionalidadeDAO.selectAllNascionalidade()
             if(result){
     
                 if(result.length > 0 ){
@@ -130,7 +130,7 @@ const listarNascionalidade = async function () {
 }
 
 // Função que Busca Nascionalidade no banco de Dados 
-const buscarNascionalidade = async function (id) {
+const buscarNacionalidade = async function (id) {
     let message  = JSON.parse(JSON.stringify(config_message)) //(STATUS 400)
        
            try {
@@ -139,7 +139,7 @@ const buscarNascionalidade = async function (id) {
                    message.ERROR_BAD_REQUEST.field = '[ID INVÁLIDO]'
                    return message.ERROR_BAD_REQUEST //400
                }else{
-                   let result = await nascionalidadeDAO.selectByIdNascionalidade(id)
+                   let result = await nacionalidadeDAO.selectByIdNascionalidade(id)
        
                    if(result){
                        if(result.length > 0){
@@ -162,7 +162,7 @@ const buscarNascionalidade = async function (id) {
 }
 
 // Função que exclui Nascionalidade no banco de Dados
-const excluirNascionalidade = async function (id) {
+const excluirNacionalidade = async function (id) {
      let message  = JSON.parse(JSON.stringify(config_message)) 
         
         try {
@@ -172,7 +172,7 @@ const excluirNascionalidade = async function (id) {
             //Validação para verificar se o status é verdadeiro (Se existe o filme)
             if(resultBuscarId.status){
              //Chamar função DAO para excluir o filme
-                let result = await nascionalidadeDAO.deleteNascionalidade(id)
+                let result = await nacionalidadeDAO.deleteNascionalidade(id)
                 if(result){
                     return message.SUCCES_DELETED_ITEM //(registro excluido)
                 }else{
@@ -190,14 +190,14 @@ const excluirNascionalidade = async function (id) {
 }
 
 //Função para validar todos os dados de filmes (obrigatorio, qtde de caracteres,etc)
- const validarDados = async function (nascionalidade){
+ const validarDados = async function (nacionalidade){
 
 
     //Criando um clone do objeto json para manipular a sua estrutura local sem modificar a estrutura original. 
     let message  = JSON.parse(JSON.stringify(config_message)) //(STATUS 400)
-    console.log( nascionalidade.nascionalidade.split('.')[0].length)
+    console.log( nacionalidade.nacionalidade.split('.')[0].length)
     
-    if(nascionalidade.nascionalidade == undefined || nascionalidade.nascionalidade  === '' || nascionalidade.nascionalidade == null ){
+    if(nacionalidade.nacionalidade == undefined || nacionalidade.nacionalidade  === '' || nacionalidade.nacionalidade == null ){
         message.ERROR_BAD_REQUEST.field = '[ATIVIDADE] INVALIDO'
         return message.ERROR_BAD_REQUEST //400
     }else{
@@ -206,10 +206,10 @@ const excluirNascionalidade = async function (id) {
  }
 
 module.exports = {
-    inserirNovaNascionalidade,
-    atualizarNascionalidade,
-    listarNascionalidade,
-    buscarNascionalidade,
-    excluirNascionalidade,
+    inserirNovaNacionalidade,
+    atualizarNacionalidade,
+    listarNacionalidade,
+    buscarNacionalidade,
+    excluirNacionalidade,
     validarDados
  }

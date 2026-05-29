@@ -14,7 +14,7 @@ const knexConfig = require('../../database_config_knex/knexFile')
 const knexConex = knex(knexConfig.development)
 
 //Função para Inserir dados na tabela de atividade.
-const insertNascionalidade = async function (nascionalidade) {
+const insertNacionalidade = async function (nascionalidade) {
     try {
         let sql = ` insert into tbl_nascionalidade(
 		            nascionalidade
@@ -34,7 +34,7 @@ const insertNascionalidade = async function (nascionalidade) {
 }
 
 
-const updateNascionalidade = async function (nascionalidade) {
+const updateNacionalidade = async function (nascionalidade) {
     try {
         let sql = `update tbl_nascionalidade set
              nascionalidade = '${nascionalidade.nascionalidade}'
@@ -52,7 +52,7 @@ const updateNascionalidade = async function (nascionalidade) {
     }
 }
 
-const selectAllNascionalidade = async function (params) {
+const selectAllNacionalidade = async function (params) {
     try {
         //Script para retornar todos os filmes 
         let sql =  `select * from tbl_nascionalidade order by id desc ` 
@@ -73,7 +73,7 @@ const selectAllNascionalidade = async function (params) {
     }
 } 
 
-const selectByIdNascionalidade = async function (id) {
+const selectByIdNacionalidade = async function (id) {
     try {
         let sql = `select * from tbl_nascionalidade where id= ${id}`
         
@@ -91,7 +91,7 @@ const selectByIdNascionalidade = async function (id) {
     }
 }
 
-const deleteNascionalidade = async function (id) {
+const deleteNacionalidade = async function (id) {
     try {
         
         let sql = `delete from tbl_nascionalidade where id = ${id}`
@@ -109,9 +109,9 @@ const deleteNascionalidade = async function (id) {
 }
 
 module.exports = {
-    insertNascionalidade,
-    updateNascionalidade,
-    selectAllNascionalidade,
-    selectByIdNascionalidade,
-    deleteNascionalidade
+    insertNacionalidade,
+    updateNacionalidade,
+    selectAllNacionalidade,
+    selectByIdNacionalidade,
+    deleteNacionalidade
  }

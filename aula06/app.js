@@ -180,16 +180,16 @@ app.delete('/v1/senai/locadora/atividade/:id',  async function(request,response)
  //ENDPOINTS NASCIONALIDADE
 
  // import das Controller
- const controllerNascionalidade = require('./controller/nascionalidade/controller_nascionalidade.js')
+ const controllerNacionalidade = require('./controller/nascionalidade/controller_nacionalidade.js')
 
 
-app.post('/v1/senai/locadora/nascionalidade', bodyParserJOSN, async function(request,response){
+app.post('/v1/senai/locadora/nacionalidade', bodyParserJOSN, async function(request,response){
     // Recebe o conteúdo dentro do body da requisição
     let dados = request.body
     // Recebe o content Type da função para validar se é um Json
     let contentType = request.headers['content-type']
 
-    let result = await controllerNascionalidade.inserirNovaNascionalidade(dados,contentType)
+    let result = await controllerNacionalidade.inserirNovaNacionalidade(dados,contentType)
     
     response.status(result.status_code)
     response.json(result)
@@ -197,25 +197,25 @@ app.post('/v1/senai/locadora/nascionalidade', bodyParserJOSN, async function(req
 
 })
 
-app.get('/v1/senai/locadora/nascionalidade', async function (request,response){
+app.get('/v1/senai/locadora/nacionalidade', async function (request,response){
 
-    let result = await controllerNascionalidade.listarNascionalidade()
+    let result = await controllerNacionalidade.listarNacionalidade()
     
     response.status(result.status_code)
     response.json(result)
 })
 
-app.get('/v1/senai/locadora/nascionalidade/:id', async function (request, response){
+app.get('/v1/senai/locadora/nacionalidade/:id', async function (request, response){
     //Recebi via parametro
     let id = request.params.id
 
-    let result= await controllerNascionalidade.buscarNascionalidade(id)
+    let result= await controllerNacionalidade.buscarNacionalidade(id)
 
     response.status(result.status_code)
     response.json(result)
 })
 
-app.put('/v1/senai/locadora/nascionalidade/:id', bodyParserJOSN, async function(request, response){
+app.put('/v1/senai/locadora/nacionalidade/:id', bodyParserJOSN, async function(request, response){
     
     //Recebe o content type da requisição 
     let contentType = request.headers['content-type']
@@ -226,13 +226,13 @@ app.put('/v1/senai/locadora/nascionalidade/:id', bodyParserJOSN, async function(
     
     // Chama a função de atualizar na controller e encaminha os dados, id e content-type
     //obedecendo a ordem de criação na função da controller. 
-    let result = await controllerNascionalidade.atualizarNascionalidade(dados,id,contentType)
+    let result = await controllerNacionalidade.atualizarNacionalidade(dados,id,contentType)
 
     response.status(result.status_code)
     response.json(result)
 })
 
-app.delete('/v1/senai/locadora/nascionalidade/:id',  async function(request,response){
+app.delete('/v1/senai/locadora/nacionalidade/:id',  async function(request,response){
     
     
     //Recebe o ID da requisição 
@@ -241,7 +241,7 @@ app.delete('/v1/senai/locadora/nascionalidade/:id',  async function(request,resp
     
     // Chama a função de atualizar na controller e encaminha os dados, id e content-type
     //obedecendo a ordem de criação na função da controller. 
-    let result = await controllerNascionalidade.excluirNascionalidade(id)
+    let result = await controllerNacionalidade.excluirNacionalidade(id)
 
     response.status(result.status_code)
     response.json(result)
@@ -277,7 +277,7 @@ app.get('/v1/senai/locadora/classificacao', async function (request, response) {
     response.json(result)
 })
 
-app.get('/v1/senai/locadora/classificacao:id', async function (request, response) {
+app.get('/v1/senai/locadora/classificacao/:id', async function (request, response) {
     let id = request.params.id
     
     let result = await controllerClassificacao.buscarClassificacao(id)
@@ -286,7 +286,7 @@ app.get('/v1/senai/locadora/classificacao:id', async function (request, response
     response.json(result)
 })
 
-app.put('/v1/senai/locadora/classificacao:id', bodyParserJOSN, async function(request, response) {
+app.put('/v1/senai/locadora/classificacao/:id', bodyParserJOSN, async function(request, response) {
     
     //Recebe o contenty type da requisição
     let contentType = request.headers['content-type']
@@ -306,7 +306,7 @@ app.put('/v1/senai/locadora/classificacao:id', bodyParserJOSN, async function(re
 
 })
 
-app.delete('/v1/senai/locadora/classificacao:id', async function(request, response) {
+app.delete('/v1/senai/locadora/classificacao/:id', async function(request, response) {
     
 
     let id = request.params.id
